@@ -13,3 +13,7 @@ We use [GitHub flow](https://githubflow.github.io/) as git branching strategy. I
 
 For commit messages, we use [GitMoji](https://gitmoji.dev/). There is a handy IntelliJ plugin to help you choose the right emoji.
 Other than that, a commit message should follow the pattern `:emoji: Short description (#:issue number:)`.
+
+## SDKman
+For automatically using Java 17 when entering this repository, simply set `sdkman_auto_env=true` in `~/.sdkman/etc/config`
+This makes sdkman switch to the java version defined in `.sdkmanrc` automatically when you `cd` into this repo.
