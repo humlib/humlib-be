@@ -28,7 +28,12 @@ Other than that, a commit message should follow the pattern `:emoji: Short descr
 ### Setup
 
 - open a terminal
-- execute `HUMLIB_BE_HOME=$(pwd) source docker/humlib.profiles` from the repository root
+- variant 1:
+  - set HUMLIB_BE_HOME in your .zshrc or .bashrc `export HUMLIB_BE_HOME="<path>"`
+  - also add `source ${HUMLIB_BE_HOME}/docker/humlib.profiles`
+- variant 2:
+  - navigate to this directory
+  - execute `HUMLIB_BE_HOME=$(pwd) source docker/humlib.profiles` from the repository root
 
 ### All services
 
