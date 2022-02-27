@@ -1,0 +1,29 @@
+name: "Unit Test Results"
+
+on:
+  workflow_run:
+    workflows: [ "Continuous Integration" ]
+    types:
+      - completed
+
+jobs:
+  coverage:
+    name: "JaCoCo coverage"
+    runs-on: ubuntu-latest
+    if: github.event.workflow_run.conclusion != 'skipped'
+    steps:
+      - name: "Download JaCoCo test report"
+        uses: actions/download-artifact@v2
+        with:
+          name: "jacocoTestReport"
+      - name: "Generate check run"
+        uses: PavanMudigonda/jacoco-reporter@v2.3
+        with:
+          coverage_results_path: build/reports/jacoco/test/jacocoTestReport.xml
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: "Generate comment"
+        if: github.event_name == 'pull_request'
+        uses: madrapps/jacoco-report@v1.2
+        with:
+          paths: build/reports/jacoco/test/jacocoTestReport.xml
+          token: ${{ secrets.GITHUB_TOKEN }}
