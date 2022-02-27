@@ -1,3 +1,8 @@
+### HUMLIB START
+docker/volumes
+*.overrides
+
+### HUMLIB END
 HELP.md
 .gradle
 build/
