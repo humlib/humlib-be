@@ -16,5 +16,5 @@ alias humlib-be-keycloak-delete="cd ${HUMLIB_BE_DOCKER_HOME_KEYCLOAK} && docker-
 
 alias humlib-be-start="humlib-be-elasticstack-start && humlib-be-keycloak-start"
 alias humlib-be-start-min="humlib-be-elasticstack-start-min && humlib-be-keycloak-start"
-alias-humlib-be-stop="humlib-be-elasticstack-stop && humlib-be-keycloak-stop"
-alias-humlib-be-delete="humlib-be-elasticstack-delete && humlib-be-keycloak-delete"
+alias humlib-be-stop="humlib-be-elasticstack-stop && humlib-be-keycloak-stop"
+alias humlib-be-delete="humlib-be-elasticstack-delete && humlib-be-keycloak-delete"
