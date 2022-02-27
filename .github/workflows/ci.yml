@@ -57,7 +57,7 @@ jobs:
       - name: "Download coverage report"
         uses: actions/download-artifact@v2
         with:
-          name: "coverage-report"coda
+          name: "coverage-report"
       - name: "Upload to Codacy"
         uses: codacy/codacy-coverage-reporter-action@v1
         with:
