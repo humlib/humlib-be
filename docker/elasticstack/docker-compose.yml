@@ -103,7 +103,7 @@ services:
         condition: service_healthy
     image: docker.elastic.co/kibana/kibana:${ELASTICSTACK_VERSION}
     environment:
-      USER_KIBANA_SYSTEM_PASSWORD: ${ELASTICKSTACK_USER_KIBANA_SYSTEM_PASSWORD}
+      ELASTICSTACK_USER_KIBANA_SYSTEM_PASSWORD: ${ELASTICSTACK_USER_KIBANA_SYSTEM_PASSWORD}
     networks:
       - elk
     volumes:

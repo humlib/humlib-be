@@ -1,5 +1,5 @@
 ### HUMLIB START
-docker/volumes
+volumes
 *.overrides
 *.log
 logs/
