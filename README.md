@@ -1,4 +1,5 @@
 [![Continuous Integration](https://github.com/mor4thii/humlib-be/actions/workflows/ci.yml/badge.svg)](https://github.com/mor4thii/humlib-be/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/mor4thii/humlib-be/branch/main/graph/badge.svg?token=47P860WK1K)](https://codecov.io/gh/mor4thii/humlib-be)
 
 # humlib-be
 
@@ -29,5 +30,6 @@ This makes sdkman switch to the java version defined in `.sdkmanrc` automaticall
 You need to have a pull request for your branch to have the defined GitHub workflows executed automatically. On push
 to 'main', so basically when a pull request is merged, another run is triggered for 'main'.
 
-The pipeline builds the application and executes tests. It then uploades coverage data and test results as artifacts.
-Both are posted as a comment to PRs. Unit test results can also be reviewed as a dedicated check run.
+The pipeline builds the application and executes tests. It then uploads coverage data and test results as artifacts.
+Both are posted as a comment to PRs. Unit test results can also be reviewed as a dedicated check run. Code coverage
+results are uploaded to [Codecov](https://app.codecov.io/gh/mor4thii/humlib-be/)
