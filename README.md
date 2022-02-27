@@ -1,5 +1,6 @@
 [![Continuous Integration](https://github.com/mor4thii/humlib-be/actions/workflows/ci.yml/badge.svg)](https://github.com/mor4thii/humlib-be/actions/workflows/ci.yml)
-[![codecov](https://codecov.io/gh/mor4thii/humlib-be/branch/main/graph/badge.svg?token=47P860WK1K)](https://codecov.io/gh/mor4thii/humlib-be)
+[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/561b77a871fb48d084975e6e832aea97)](https://www.codacy.com/gh/mor4thii/humlib-be/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=mor4thii/humlib-be&amp;utm_campaign=Badge_Coverage)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/561b77a871fb48d084975e6e832aea97)](https://www.codacy.com/gh/mor4thii/humlib-be/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=mor4thii/humlib-be&amp;utm_campaign=Badge_Grade)
 
 # humlib-be
 
@@ -32,4 +33,4 @@ to 'main', so basically when a pull request is merged, another run is triggered 
 
 The pipeline builds the application and executes tests. It then uploads coverage data and test results as artifacts.
 Both are posted as a comment to PRs. Unit test results can also be reviewed as a dedicated check run. Code coverage
-results are uploaded to [Codecov](https://app.codecov.io/gh/mor4thii/humlib-be/)
+results are uploaded to [Codacy](https://app.codacy.com/gh/mor4thii/humlib-be/dashboard?branch=main)
