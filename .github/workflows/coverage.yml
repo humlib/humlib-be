@@ -29,11 +29,11 @@ jobs:
       - name: "Generate check run"
         uses: PavanMudigonda/jacoco-reporter@v2.3
         with:
-          coverage_results_path: artifacts/jacoco_test_report/build/reports/jacoco/test/jacocoTestReport.xml
+          coverage_results_path: artifacts/jacoco_test_report/jacocoTestReport.xml
           github_token: ${{ secrets.GITHUB_TOKEN }}
       - name: "Generate comment"
         if: github.event_name == 'pull_request'
         uses: madrapps/jacoco-report@v1.2
         with:
-          paths: artifacts/jacoco_test_report/build/reports/jacoco/test/jacocoTestReport.xml
+          paths: artifacts/jacoco_test_report/jacocoTestReport.xml
           token: ${{ secrets.GITHUB_TOKEN }}
