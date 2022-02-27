@@ -36,8 +36,6 @@ services:
         until curl -s --cacert config/certs/ca/ca.crt https://es01:9200 | grep -q "missing authentication credentials"; do sleep 30; done;
         echo "Setting kibana_system password";
         until curl -s -X POST --cacert config/certs/ca/ca.crt -u elastic:${USER_ELASTIC_PASSWORD} -H "Content-Type: application/json" https://es01:9200/_security/user/kibana_system/_password -d "{\"password\":\"${USER_KIBANA_SYSTEM_PASSWORD}\"}" | grep -q "^{}"; do sleep 10; done;
-        echo "Setting logstash_internal password";
-        until curl -s -X POST --cacert config/certs/ca/ca.crt -u elastic:${USER_ELASTIC_PASSWORD} -H "Content-Type: application/json" https://es01:9200/_security/user/logstash_internal/_password -d "{\"password\":\"${USER_LOGSTASH_INTERNAL_PASSWORD}\"}" | grep -q "^{}"; do sleep 10; done;
         echo "All done!";
       '
     healthcheck:
@@ -82,7 +80,7 @@ services:
   logstash:
     profiles: [ "all" ]
     environment:
-      USER_LOGSTASH_INTERNAL_PASSWORD: ${USER_LOGSTASH_INTERNAL_PASSWORD}
+      USER_ELASTIC_PASSWORD: ${USER_ELASTIC_PASSWORD}
     depends_on:
       es01:
         condition: service_healthy
