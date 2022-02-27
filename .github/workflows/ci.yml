@@ -25,17 +25,23 @@ jobs:
           name: "Unit Test Results"
           path: |
             build/test-results/**/*.xml
-      - name: "JaCoCo Report"
+
+  coverage:
+    name: "Coverage"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "JaCoCo report"
         uses: PavanMudigonda/jacoco-reporter@v2.3
         with:
           coverage_results_path: build/reports/jacoco/test/jacocoTestReport.xml
           github_token: ${{ secrets.GITHUB_TOKEN }}
-      - name: "Comment coverage to PR"
+      - name: "JaCoCo comment"
         uses: madrapps/jacoco-report@v1.2
         with:
           paths: build/reports/jacoco/test/jacocoTestReport.xml
           token: ${{ secrets.GITHUB_TOKEN }}
         if: github.event_name == 'pull_request'
+
   event_file:
     name: "Upload event file"
     runs-on: ubuntu-latest
