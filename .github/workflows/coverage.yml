@@ -8,12 +8,10 @@ on:
 
 jobs:
   coverage:
-    name: "JaCoCo coverage"
+    name: "Upload coverage"
     runs-on: ubuntu-latest
     if: github.event.workflow_run.conclusion != 'skipped'
     steps:
-      - name: "Check out code"
-        uses: actions/checkout@v2
       - name: "Download and Extract Artifacts"
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
@@ -28,7 +26,7 @@ jobs:
             gh api $url > "$name.zip"
             unzip -d "$name" "$name.zip"
           done
-      - name: "Upload to codecov"
+      - name: "Upload to Codecov"
         uses: codecov/codecov-action@v2
         with:
           files: artifacts/jacoco_test_report/jacocoTestReport.xml
