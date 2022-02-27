@@ -43,14 +43,14 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: "test-results"
-      - name: "Publish Unit Test Results"
+      - name: "Publish test results"
         uses: EnricoMi/publish-unit-test-result-action@v1
         if: always()
         with:
           files: ./**/*.xml
 
   coverage:
-    name: "Publish coverage"
+    name: "Publish coverage report"
     runs-on: ubuntu-latest
     needs: build
     steps:
