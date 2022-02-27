@@ -1,4 +1,4 @@
-[![Build the application](https://github.com/mor4thii/humlib-be/actions/workflows/build.yml/badge.svg)](https://github.com/mor4thii/humlib-be/actions/workflows/build.yml)
+[![Continuous Integration](https://github.com/mor4thii/humlib-be/actions/workflows/ci.yml/badge.svg)](https://github.com/mor4thii/humlib-be/actions/workflows/ci.yml)
 
 # humlib-be
 

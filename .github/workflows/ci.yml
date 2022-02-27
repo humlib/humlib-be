@@ -1,4 +1,4 @@
-name: Build the application
+name: Continuous Integration
 on: [ push, pull_request ]
 
 jobs:
