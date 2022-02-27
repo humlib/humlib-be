@@ -28,31 +28,12 @@ jobs:
           name: "Unit test results"
           path: |
             build/test-results/**/*.xml
-
-  coverage:
-    name: "JaCoCo coverage"
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: "Check out code"
-        uses: actions/checkout@v2
-      - name: "Install Java 17 Temurin"
-        uses: actions/setup-java@v2
+      - name: "Upload coverage report"
+        if: always()
+        uses: actions/upload-artifact@v2
         with:
-          distribution: "temurin"
-          java-version: "17"
-          cache: "gradle"
-      - name: "Generate check run"
-        uses: PavanMudigonda/jacoco-reporter@v2.3
-        with:
-          coverage_results_path: build/reports/jacoco/test/jacocoTestReport.xml
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-      - name: "Generate comment"
-        if: github.event_name == 'pull_request'
-        uses: madrapps/jacoco-report@v1.2
-        with:
-          paths: build/reports/jacoco/test/jacocoTestReport.xml
-          token: ${{ secrets.GITHUB_TOKEN }}
+          name: "jacocoTestReport"
+          path: build/reports/jacoco/test/jacocoTestReport.xml
 
   event_file:
     name: "Upload event file"
