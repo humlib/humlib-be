@@ -1,4 +1,4 @@
-name: Unit Test Results
+name: "Unit Test Results"
 
 on:
   workflow_run:
@@ -8,12 +8,12 @@ on:
 
 jobs:
   unit-test-results:
-    name: Unit Test Results
+    name: "Unit Test Results"
     runs-on: ubuntu-latest
     if: github.event.workflow_run.conclusion != 'skipped'
 
     steps:
-      - name: Download and Extract Artifacts
+      - name: "Download and Extract Artifacts"
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         run: |
@@ -28,7 +28,7 @@ jobs:
             unzip -d "$name" "$name.zip"
           done
 
-      - name: Publish Unit Test Results
+      - name: "Publish Unit Test Results"
         uses: EnricoMi/publish-unit-test-result-action@v1
         with:
           commit: ${{ github.event.workflow_run.head_sha }}
