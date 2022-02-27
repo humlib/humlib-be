@@ -34,6 +34,14 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
+      - name: "Check out code"
+        uses: actions/checkout@v2
+      - name: "Install Java 17 Temurin"
+        uses: actions/setup-java@v2
+        with:
+          distribution: "temurin"
+          java-version: "17"
+          cache: "gradle"
       - name: "Generate check run"
         uses: PavanMudigonda/jacoco-reporter@v2.3
         with:
