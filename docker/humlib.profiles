@@ -1,4 +1,5 @@
 export HUMLIB_BE_HOME=<YOUR PATH>
-alias humlib-be-elasticstack-start="cd ${HUMLIB_BE_HOME}/docker && docker-compose --project-name humlib-elasticstack --env-file .env.local up -d"
-alias humlib-be-elasticstack-stop="cd ${HUMLIB_BE_HOME}/docker && docker-compose --project-name humlib-elasticstack stop"
-alias humlib-be-elasticstack-delete="cd ${HUMLIB_BE_HOME}/docker && docker-compose --project-name humlib-elasticstack down -v"
+alias humlib-be-elasticstack-start="cd ${HUMLIB_BE_HOME}/docker && docker-compose --project-name humlib-elasticstack --profile all --env-file ./.env.local up -d"
+alias humlib-be-elasticstack-start-min="cd ${HUMLIB_BE_HOME}/docker && docker-compose --project-name humlib-elasticstack --profile elastic-only --env-file ./.env.local up -d"
+alias humlib-be-elasticstack-stop="cd ${HUMLIB_BE_HOME}/docker && docker-compose --project-name humlib-elasticstack --profile all --env-file ./.env.local stop"
+alias humlib-be-elasticstack-delete="cd ${HUMLIB_BE_HOME}/docker && docker-compose --project-name humlib-elasticstack --profile all --env-file ./.env.local down -v"

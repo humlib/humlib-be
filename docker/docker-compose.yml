@@ -1,5 +1,6 @@
 services:
   setup:
+    profiles: ["all", "elastic-only"]
     image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTICSTACK_VERSION}
     networks:
       - elk
@@ -44,6 +45,7 @@ services:
       retries: 120
 
   es01:
+    profiles: ["all", "elastic-only"]
     depends_on:
       setup:
         condition: service_healthy
@@ -60,7 +62,6 @@ services:
     environment:
       ES_JAVA_OPTS: -Xmx256m -Xms256m
       ELASTIC_PASSWORD: ${USER_ELASTIC_PASSWORD}
-      ELASTICSEARCH_CLUSTER_NAME: ${ELASTICSEARCH_CLUSTER_NAME}
     mem_limit: ${ELASTICSTACK_MEM_LIMIT}
     ulimits:
       memlock:
@@ -77,14 +78,13 @@ services:
       retries: 120
 
   kibana:
+    profiles: ["all"]
     depends_on:
       es01:
         condition: service_healthy
     image: docker.elastic.co/kibana/kibana:${ELASTICSTACK_VERSION}
     networks:
       - elk
-    environment:
-      USER_KIBANA_SYSTEM_PASSWORD: ${USER_KIBANA_SYSTEM_PASSWORD}
     volumes:
       - "./volumes/certs:/usr/share/kibana/config/certs:delegated"
       - "./volumes/kibanadata:/usr/share/kibana/data:delegated"
