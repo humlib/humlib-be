@@ -1,6 +1,8 @@
 ### HUMLIB START
 docker/volumes
 *.overrides
+*.log
+logs/
 
 ### HUMLIB END
 HELP.md

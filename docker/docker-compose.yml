@@ -36,6 +36,8 @@ services:
         until curl -s --cacert config/certs/ca/ca.crt https://es01:9200 | grep -q "missing authentication credentials"; do sleep 30; done;
         echo "Setting kibana_system password";
         until curl -s -X POST --cacert config/certs/ca/ca.crt -u elastic:${USER_ELASTIC_PASSWORD} -H "Content-Type: application/json" https://es01:9200/_security/user/kibana_system/_password -d "{\"password\":\"${USER_KIBANA_SYSTEM_PASSWORD}\"}" | grep -q "^{}"; do sleep 10; done;
+        echo "Setting logstash_internal password";
+        until curl -s -X POST --cacert config/certs/ca/ca.crt -u elastic:${USER_ELASTIC_PASSWORD} -H "Content-Type: application/json" https://es01:9200/_security/user/logstash_internal/_password -d "{\"password\":\"${USER_LOGSTASH_INTERNAL_PASSWORD}\"}" | grep -q "^{}"; do sleep 10; done;
         echo "All done!";
       '
     healthcheck:
@@ -58,7 +60,7 @@ services:
     volumes:
       - "./volumes/certs:/usr/share/elasticsearch/config/certs:delegated"
       - "./volumes/esdata01:/usr/share/elasticsearch/data:delegated"
-      - "./config/elasticsearch/es01.yml:/usr/share/elasticsearch/config/elasticsearch.yml"
+      - "./config/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml"
     environment:
       ES_JAVA_OPTS: -Xmx256m -Xms256m
       ELASTIC_PASSWORD: ${USER_ELASTIC_PASSWORD}
@@ -77,12 +79,33 @@ services:
       timeout: 10s
       retries: 120
 
+  logstash:
+    profiles: [ "all" ]
+    environment:
+      USER_LOGSTASH_INTERNAL_PASSWORD: ${USER_LOGSTASH_INTERNAL_PASSWORD}
+    depends_on:
+      es01:
+        condition: service_healthy
+    image: docker.elastic.co/logstash/logstash:${ELASTICSTACK_VERSION}
+    networks:
+      - elk
+    volumes:
+      - "./volumes/certs:/usr/share/logstash/certs:delegated"
+      - "./volumes/logstashdata:/usr/share/logstash/data:delegated"
+      - "./config/logstash:/usr/share/logstash/config:delegated"
+      - "../logs/:/var/log/local_development:delegated"
+    ports:
+      - 5044:5044
+    mem_limit: ${ELASTICSTACK_MEM_LIMIT}
+
   kibana:
     profiles: ["all"]
     depends_on:
       es01:
         condition: service_healthy
     image: docker.elastic.co/kibana/kibana:${ELASTICSTACK_VERSION}
+    environment:
+      USER_KIBANA_SYSTEM_PASSWORD: ${USER_KIBANA_SYSTEM_PASSWORD}
     networks:
       - elk
     volumes:

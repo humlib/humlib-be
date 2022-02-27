@@ -23,3 +23,31 @@ right emoji. Other than that, a commit message should follow the pattern `:emoji
 For automatically using Java 17 when entering this repository, simply set `sdkman_auto_env=true`
 in `~/.sdkman/etc/config`
 This makes sdkman switch to the java version defined in `.sdkmanrc` automatically when you `cd` into this repo.
+
+## elasticstack
+version: [8.0.0](https://www.elastic.co/guide/en/elastic-stack-get-started/8.0/get-started-stack-docker.html#run-docker-secure "documentation")
+
+### prerequisites
+- docker desktop
+- at least 4GB available memory
+
+### setup
+- open a terminal
+- navigate to the directory `humlib-be/docker`
+- copy `humlib.profiles` to `humlib.profiles.overrides` and set the absolute path to your "humlib-be"-project
+- execute `source humlib.profiles.overrides`
+
+### start and stop commands
+- initialize and start the elasticstack via `humlib-be-elasticstack-start`
+- if you only want to run elasticsearch, use the command `humlib-be-elasticstack-start-min`
+- stop the docker setup with the command `humlib-be-elasticstack-stop` or stop and delete all volumes via `humlib-be-elasticstack-delete`
+
+### usage
+- elasticsearch: [https://localhost:9200](https://localhost:9200 'https://localhost:9200')
+- kibana: [localhost:5601](localhost:5601 'localhost:5601')
+- logstash: listens for beats input on port 5044 ([localhost:5044](localhost:5044 'localhost:5044')) and reads `*.log`-files from the directory `humlib-be/logs`
+
+### built-in users
+- superuser: elastic - password: [USER_ELASTIC_PASSWORD](docker/.env.local 'USER_ELASTIC_PASSWORD')
+- user: kibana_systems - password: [USER_KIBANA_SYSTEMS_PASSWORD](docker/.env.local 'USER_KIBANA_SYSTEMS_PASSWORD')
+- user: logstash_internal - password: [USER_LOGSTASH_INTERNAL_PASSWORD](docker/.env.local 'USER_LOGSTASH_INTERNAL_PASSWORD')
