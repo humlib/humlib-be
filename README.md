@@ -40,4 +40,3 @@ version: [8.0.0](https://www.elastic.co/guide/en/elastic-stack-get-started/8.0/g
 ### built-in users
 - superuser: elastic - password: [USER_ELASTIC_PASSWORD](docker/.env.local 'USER_ELASTIC_PASSWORD')
 - user: kibana_systems - password: [USER_KIBANA_SYSTEMS_PASSWORD](docker/.env.local 'USER_KIBANA_SYSTEMS_PASSWORD')
-- user: logstash_internal - password: [USER_LOGSTASH_INTERNAL_PASSWORD](docker/.env.local 'USER_LOGSTASH_INTERNAL_PASSWORD')
