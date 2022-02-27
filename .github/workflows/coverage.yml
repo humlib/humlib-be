@@ -1,4 +1,4 @@
-name: "Unit Test Results"
+name: "Coverage"
 
 on:
   workflow_run:
