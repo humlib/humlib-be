@@ -26,21 +26,11 @@ jobs:
             gh api $url > "$name.zip"
             unzip -d "$name" "$name.zip"
           done
-      - name: "Generate check run"
-        uses: PavanMudigonda/jacoco-reporter@v2.3
-        with:
-          coverage_results_path: ${{ github.workspace }}/artifacts/jacoco_test_report/jacocoTestReport.xml
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          coverage_report_name: Coverage
-          coverage_report_title: JaCoCo
-          skip_check_run: false
-          minimum_coverage: 80
-          fail_below_threshold: false
       - name: "Generate comment"
         if: github.event_name == 'pull_request'
         uses: madrapps/jacoco-report@v1.2
         with:
-          paths: ${{ github.workspace }}/artifacts/jacoco_test_report/jacocoTestReport.xml
+          paths: artifacts/jacoco_test_report/jacocoTestReport.xml
           token: ${{ secrets.GITHUB_TOKEN }}
           min-coverage-overall: 80
           min-coverage-changed-files: 80
