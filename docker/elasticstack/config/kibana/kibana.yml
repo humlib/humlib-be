@@ -3,4 +3,4 @@ server.host: "0.0.0.0"
 elasticsearch.ssl.certificateAuthorities: config/certs/ca/ca.crt
 elasticsearch.hosts: https://es01:9200
 elasticsearch.username: kibana_system
-elasticsearch.password: ${USER_KIBANA_SYSTEM_PASSWORD}
+elasticsearch.password: ${ELASTICSTACK_USER_ELASTIC_PASSWORD}

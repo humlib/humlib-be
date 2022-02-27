@@ -35,7 +35,7 @@ services:
         echo "Waiting for Elasticsearch availability";
         until curl -s --cacert config/certs/ca/ca.crt https://es01:9200 | grep -q "missing authentication credentials"; do sleep 30; done;
         echo "Setting kibana_system password";
-        until curl -s -X POST --cacert config/certs/ca/ca.crt -u elastic:${USER_ELASTIC_PASSWORD} -H "Content-Type: application/json" https://es01:9200/_security/user/kibana_system/_password -d "{\"password\":\"${USER_KIBANA_SYSTEM_PASSWORD}\"}" | grep -q "^{}"; do sleep 10; done;
+        until curl -s -X POST --cacert config/certs/ca/ca.crt -u elastic:${ELASTICSTACK_USER_ELASTIC_PASSWORD} -H "Content-Type: application/json" https://es01:9200/_security/user/kibana_system/_password -d "{\"password\":\"${ELASTICSTACK_USER_KIBANA_SYSTEM_PASSWORD}\"}" | grep -q "^{}"; do sleep 10; done;
         echo "All done!";
       '
     healthcheck:
@@ -61,7 +61,7 @@ services:
       - "./config/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml"
     environment:
       ES_JAVA_OPTS: -Xmx256m -Xms256m
-      ELASTIC_PASSWORD: ${USER_ELASTIC_PASSWORD}
+      ELASTIC_PASSWORD: ${ELASTICSTACK_USER_ELASTIC_PASSWORD}
     mem_limit: ${ELASTICSTACK_MEM_LIMIT}
     ulimits:
       memlock:
@@ -80,7 +80,7 @@ services:
   logstash:
     profiles: [ "all" ]
     environment:
-      USER_ELASTIC_PASSWORD: ${USER_ELASTIC_PASSWORD}
+      ELASTICSTACK_USER_ELASTIC_PASSWORD: ${ELASTICSTACK_USER_ELASTIC_PASSWORD}
     depends_on:
       es01:
         condition: service_healthy
@@ -103,7 +103,7 @@ services:
         condition: service_healthy
     image: docker.elastic.co/kibana/kibana:${ELASTICSTACK_VERSION}
     environment:
-      USER_KIBANA_SYSTEM_PASSWORD: ${USER_KIBANA_SYSTEM_PASSWORD}
+      USER_KIBANA_SYSTEM_PASSWORD: ${ELASTICKSTACK_USER_KIBANA_SYSTEM_PASSWORD}
     networks:
       - elk
     volumes:

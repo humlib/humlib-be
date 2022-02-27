@@ -1,5 +1,15 @@
 export HUMLIB_BE_HOME=<YOUR PATH>
-alias humlib-be-elasticstack-start="cd ${HUMLIB_BE_HOME}/docker && docker-compose --project-name humlib-elasticstack --profile all --env-file ./.env.local up -d"
-alias humlib-be-elasticstack-start-min="cd ${HUMLIB_BE_HOME}/docker && docker-compose --project-name humlib-elasticstack --profile elastic-only --env-file ./.env.local up -d"
-alias humlib-be-elasticstack-stop="cd ${HUMLIB_BE_HOME}/docker && docker-compose --project-name humlib-elasticstack --profile all --env-file ./.env.local stop"
-alias humlib-be-elasticstack-delete="cd ${HUMLIB_BE_HOME}/docker && docker-compose --project-name humlib-elasticstack --profile all --env-file ./.env.local down -v"
+export HUMLIB_BE_DOCKER_HOME=${HUMLIB_BE_HOME}/docker
+
+export HUMLIB_BE_DOCKER_HOME_ELASTICSTACK=${HUMLIB_BE_DOCKER_HOME}/elasticstack
+export HUMLIB_BE_DOCKER_PROJECT_NAME_ELASTICSTACK=humlib-elasticstack
+alias humlib-be-elasticstack-start="cd ${HUMLIB_BE_DOCKER_HOME_ELASTICSTACK} && docker-compose --project-name ${HUMLIB_BE_DOCKER_PROJECT_NAME_ELASTICSTACK} --profile all --env-file ${HUMLIB_BE_DOCKER_HOME}/.env.local up -d"
+alias humlib-be-elasticstack-start-min="cd ${HUMLIB_BE_DOCKER_HOME_ELASTICSTACK} && docker-compose --project-name ${HUMLIB_BE_DOCKER_PROJECT_NAME_ELASTICSTACK} --profile elastic-only --env-file ${HUMLIB_BE_DOCKER_HOME}/.env.local up -d"
+alias humlib-be-elasticstack-stop="cd ${HUMLIB_BE_DOCKER_HOME_ELASTICSTACK} && docker-compose --project-name ${HUMLIB_BE_DOCKER_PROJECT_NAME_ELASTICSTACK} --profile all --env-file ${HUMLIB_BE_DOCKER_HOME}/.env.local stop"
+alias humlib-be-elasticstack-delete="cd ${HUMLIB_BE_DOCKER_HOME_ELASTICSTACK} && docker-compose --project-name ${HUMLIB_BE_DOCKER_PROJECT_NAME_ELASTICSTACK} --profile all --env-file ${HUMLIB_BE_DOCKER_HOME}/.env.local down -v"
+
+export HUMLIB_BE_DOCKER_HOME_KEYCLOAK=${HUMLIB_BE_DOCKER_HOME}/keycloak
+export HUMLIB_BE_DOCKER_PROJECT_NAME_KEYCLOAK=humlib-keycloak
+alias humlib-be-keycloak-start="cd ${HUMLIB_BE_DOCKER_HOME_KEYCLOAK} && docker-compose --project-name ${HUMLIB_BE_DOCKER_PROJECT_NAME_KEYCLOAK} --env-file ${HUMLIB_BE_DOCKER_HOME}/.env.local up -d"
+alias humlib-be-keycloak-stop="cd ${HUMLIB_BE_DOCKER_HOME_KEYCLOAK} && docker-compose --project-name ${HUMLIB_BE_DOCKER_PROJECT_NAME_KEYCLOAK} --env-file ${HUMLIB_BE_DOCKER_HOME}/.env.local stop"
+alias humlib-be-keycloak-delete="cd ${HUMLIB_BE_DOCKER_HOME_KEYCLOAK} && docker-compose --project-name ${HUMLIB_BE_DOCKER_PROJECT_NAME_KEYCLOAK} --env-file ${HUMLIB_BE_DOCKER_HOME}/.env.local down -v"

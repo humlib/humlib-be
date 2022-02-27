@@ -1,0 +1,24 @@
+services:
+  postgres:
+    image: postgres
+    volumes:
+      - "./volumes/postgresdata:/var/lib/postgresql/data"
+    environment:
+      POSTGRES_DB: ${KEYCLOAK_DATABASE}
+      POSTGRES_USER: ${KEYCLOAK_DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${KEYCLOAK_DATABASE_PASSWORD}
+  keycloak:
+    image: quay.io/keycloak/keycloak:legacy
+    environment:
+      DB_DATABASE: ${KEYCLOAK_DATABASE}
+      DB_USER: ${KEYCLOAK_DATABASE_USERNAME}
+      DB_PASSWORD: ${KEYCLOAK_DATABASE_PASSWORD}
+      DB_VENDOR: POSTGRES
+      DB_ADDR: postgres
+      DB_SCHEMA: public
+      KEYCLOAK_USER: ${KEYCLOAK_ADMIN_USERNAME}
+      KEYCLOAK_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+    ports:
+      - 8080:8080
+    depends_on:
+      - postgres

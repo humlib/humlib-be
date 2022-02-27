@@ -38,5 +38,5 @@ version: [8.0.0](https://www.elastic.co/guide/en/elastic-stack-get-started/8.0/g
 - logstash: listens for beats input on port 5044 ([localhost:5044](localhost:5044 'localhost:5044')) and reads `*.log`-files from the directory `humlib-be/logs`
 
 ### built-in users
-- superuser: elastic - password: [USER_ELASTIC_PASSWORD](docker/.env.local 'USER_ELASTIC_PASSWORD')
-- user: kibana_systems - password: [USER_KIBANA_SYSTEMS_PASSWORD](docker/.env.local 'USER_KIBANA_SYSTEMS_PASSWORD')
+- superuser: elastic - password: [ELASTICSTACK_USER_ELASTIC_PASSWORD](docker/.env.local 'ELASTICSTACK_USER_ELASTIC_PASSWORD')
+- user: kibana_systems - password: [ELASTICSTACK_USER_KIBANA_SYSTEM_PASSWORD](docker/.env.local 'ELASTICSTACK_USER_KIBANA_SYSTEM_PASSWORD')
