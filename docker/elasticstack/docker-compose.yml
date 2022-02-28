@@ -53,8 +53,8 @@ services:
     networks:
       - elk
     ports:
-      - 9200:9200
-      - 9300:9300
+      - "9200:9200"
+      - "9300:9300"
     volumes:
       - "./volumes/certs:/usr/share/elasticsearch/config/certs:delegated"
       - "./volumes/esdata01:/usr/share/elasticsearch/data:delegated"
@@ -93,7 +93,7 @@ services:
       - "./config/logstash:/usr/share/logstash/config:delegated"
       - "../logs/:/var/log/local_development:delegated"
     ports:
-      - 5044:5044
+      - "5044:5044"
     mem_limit: ${DOCKER_MEM_LIMIT_ELASTICSTACK}
 
   kibana:
@@ -111,7 +111,7 @@ services:
       - "./volumes/kibanadata:/usr/share/kibana/data:delegated"
       - "./config/kibana/kibana.yml:/usr/share/kibana/config/kibana.yml"
     ports:
-      - 5601:5601
+      - "5601:5601"
     mem_limit: ${DOCKER_MEM_LIMIT_ELASTICSTACK}
     healthcheck:
       test:

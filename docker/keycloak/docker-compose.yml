@@ -21,6 +21,6 @@ services:
       KEYCLOAK_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
     mem_limit: ${DOCKER_MEM_LIMIT_KEYCLOAK}
     ports:
-      - 8080:8080
+      - "8080:8080"
     depends_on:
       - postgres
