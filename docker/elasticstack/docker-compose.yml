@@ -1,6 +1,6 @@
 services:
   setup:
-    profiles: ["all", "elastic-only"]
+    profiles: [ "all", "elastic-only" ]
     image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTICSTACK_VERSION}
     networks:
       - elk
@@ -39,13 +39,13 @@ services:
         echo "All done!";
       '
     healthcheck:
-      test: ["CMD-SHELL", "[ -f config/certs/es01/es01.crt ]"]
+      test: [ "CMD-SHELL", "[ -f config/certs/es01/es01.crt ]" ]
       interval: 1s
       timeout: 5s
       retries: 120
 
   es01:
-    profiles: ["all", "elastic-only"]
+    profiles: [ "all", "elastic-only" ]
     depends_on:
       setup:
         condition: service_healthy
@@ -62,7 +62,10 @@ services:
     environment:
       ES_JAVA_OPTS: -Xmx256m -Xms256m
       ELASTIC_PASSWORD: ${ELASTICSTACK_USER_ELASTIC_PASSWORD}
-    mem_limit: ${DOCKER_MEM_LIMIT_ELASTICSTACK}
+    deploy:
+      resources:
+        limits:
+          memory: ${DOCKER_MEM_LIMIT_ELASTICSTACK}
     ulimits:
       memlock:
         soft: -1
@@ -94,10 +97,13 @@ services:
       - "../logs/:/var/log/local_development:delegated"
     ports:
       - "5044:5044"
-    mem_limit: ${DOCKER_MEM_LIMIT_ELASTICSTACK}
+    deploy:
+      resources:
+        limits:
+          memory: ${DOCKER_MEM_LIMIT_ELASTICSTACK}
 
   kibana:
-    profiles: ["all"]
+    profiles: [ "all" ]
     depends_on:
       es01:
         condition: service_healthy
@@ -112,7 +118,10 @@ services:
       - "./config/kibana/kibana.yml:/usr/share/kibana/config/kibana.yml"
     ports:
       - "5601:5601"
-    mem_limit: ${DOCKER_MEM_LIMIT_ELASTICSTACK}
+    deploy:
+      resources:
+        limits:
+          memory: ${DOCKER_MEM_LIMIT_ELASTICSTACK}
     healthcheck:
       test:
         [

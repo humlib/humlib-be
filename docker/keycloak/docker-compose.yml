@@ -1,26 +1,24 @@
 services:
-  postgres:
-    image: postgres
-    volumes:
-      - "./volumes/postgresdata:/var/lib/postgresql/data"
-    environment:
-      POSTGRES_DB: ${KEYCLOAK_DATABASE}
-      POSTGRES_USER: ${KEYCLOAK_DATABASE_USERNAME}
-      POSTGRES_PASSWORD: ${KEYCLOAK_DATABASE_PASSWORD}
-    mem_limit: ${DOCKER_MEM_LIMIT_KEYCLOAK}
   keycloak:
-    image: quay.io/keycloak/keycloak:legacy
+    image: jboss/keycloak:16.1.1
+    hostname: keycloak
+    container_name: keycloak
+    ports:
+      - "8180:8080"
+    volumes:
+      - ./realms:/tmp/realms
     environment:
-      DB_DATABASE: ${KEYCLOAK_DATABASE}
-      DB_USER: ${KEYCLOAK_DATABASE_USERNAME}
-      DB_PASSWORD: ${KEYCLOAK_DATABASE_PASSWORD}
-      DB_VENDOR: POSTGRES
-      DB_ADDR: postgres
-      DB_SCHEMA: public
       KEYCLOAK_USER: ${KEYCLOAK_ADMIN_USERNAME}
       KEYCLOAK_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
-    mem_limit: ${DOCKER_MEM_LIMIT_KEYCLOAK}
+      KEYCLOAK_IMPORT: /tmp/realms/humlib-realm.json
+    deploy:
+      resources:
+        limits:
+          memory: "${DOCKER_MEM_LIMIT_KEYCLOAK}"
+  mailhog:
+    image: mailhog/mailhog:v1.0.1
+    hostname: mailhog
+    container_name: mailhog
     ports:
-      - "8080:8080"
-    depends_on:
-      - postgres
+      - "1025:1025"
+      - "8025:8025"

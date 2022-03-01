@@ -13,6 +13,7 @@ export HUMLIB_BE_DOCKER_PROJECT_NAME_KEYCLOAK=humlib-keycloak
 alias humlib-be-keycloak-start="cd ${HUMLIB_BE_DOCKER_HOME_KEYCLOAK} && docker-compose --project-name ${HUMLIB_BE_DOCKER_PROJECT_NAME_KEYCLOAK} --env-file ${HUMLIB_BE_DOCKER_HOME}/.env.local up -d"
 alias humlib-be-keycloak-stop="cd ${HUMLIB_BE_DOCKER_HOME_KEYCLOAK} && docker-compose --project-name ${HUMLIB_BE_DOCKER_PROJECT_NAME_KEYCLOAK} --env-file ${HUMLIB_BE_DOCKER_HOME}/.env.local stop"
 alias humlib-be-keycloak-delete="cd ${HUMLIB_BE_DOCKER_HOME_KEYCLOAK} && docker-compose --project-name ${HUMLIB_BE_DOCKER_PROJECT_NAME_KEYCLOAK} --env-file ${HUMLIB_BE_DOCKER_HOME}/.env.local down -v && rm -rf volumes"
+alias humlib-be-keycloak-export="docker exec -it keycloak /opt/jboss/keycloak/bin/standalone.sh -Djboss.socket.binding.port-offset=100 -Dkeycloak.migration.action=export -Dkeycloak.migration.provider=singleFile -Dkeycloak.migration.realmName=humlib -Dkeycloak.migration.usersExportStrategy=REALM_FILE -Dkeycloak.migration.file=/tmp/realms/humlib-realm.json"
 
 alias humlib-be-start="humlib-be-keycloak-start && humlib-be-elasticstack-start"
 alias humlib-be-start-min="humlib-be-keycloak-start && humlib-be-elasticstack-start-min"
