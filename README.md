@@ -75,6 +75,8 @@ version: [8.0.0](https://www.elastic.co/guide/en/elastic-stack-get-started/8.0/g
 
 #### Usage
 
+- to export changes made to the keycloak instance locally, use `humlib-be-keycloak-export`, wait until a log
+  message `Resuming server` appears, and hit Ctrl-c
 - keycloak: [https://localhost:8180](https://localhost:8180 'https://localhost:8180')
 - mailhog: [http://localhost:8025](http://localhost:8025 'http://localhost:8025')
 - mailhog (SMTP): [http://localhost:1025](http://localhost:1025 'http://localhost:8025')
