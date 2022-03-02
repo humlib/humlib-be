@@ -5,7 +5,7 @@ services:
     networks:
       - elk
     volumes:
-      - "./volumes/certs:/usr/share/elasticsearch/config/certs:delegated"
+      - "./volumes/certs:/usr/share/elasticsearch/config/certs"
     user: "0"
     command: >
       bash -c '
@@ -56,8 +56,8 @@ services:
       - "9200:9200"
       - "9300:9300"
     volumes:
-      - "./volumes/certs:/usr/share/elasticsearch/config/certs:delegated"
-      - "./volumes/esdata01:/usr/share/elasticsearch/data:delegated"
+      - "./volumes/certs:/usr/share/elasticsearch/config/certs"
+      - "./volumes/esdata01:/usr/share/elasticsearch/data"
       - "./config/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml"
     environment:
       ES_JAVA_OPTS: -Xmx256m -Xms256m
@@ -91,10 +91,10 @@ services:
     networks:
       - elk
     volumes:
-      - "./volumes/certs:/usr/share/logstash/certs:delegated"
-      - "./volumes/logstashdata:/usr/share/logstash/data:delegated"
-      - "./config/logstash:/usr/share/logstash/config:delegated"
-      - "../logs/:/var/log/local_development:delegated"
+      - "./volumes/certs:/usr/share/logstash/certs"
+      - "./volumes/logstashdata:/usr/share/logstash/data"
+      - "./config/logstash:/usr/share/logstash/config"
+      - "../logs/:/var/log/local_development"
     ports:
       - "5044:5044"
     deploy:
@@ -113,8 +113,8 @@ services:
     networks:
       - elk
     volumes:
-      - "./volumes/certs:/usr/share/kibana/config/certs:delegated"
-      - "./volumes/kibanadata:/usr/share/kibana/data:delegated"
+      - "./volumes/certs:/usr/share/kibana/config/certs"
+      - "./volumes/kibanadata:/usr/share/kibana/data"
       - "./config/kibana/kibana.yml:/usr/share/kibana/config/kibana.yml"
     ports:
       - "5601:5601"
