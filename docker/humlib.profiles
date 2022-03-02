@@ -1,18 +1,17 @@
-export HUMLIB_BE_HOME=<YOUR PATH>
 export HUMLIB_BE_DOCKER_HOME=${HUMLIB_BE_HOME}/docker
 
 export HUMLIB_BE_DOCKER_HOME_ELASTICSTACK=${HUMLIB_BE_DOCKER_HOME}/elasticstack
 export HUMLIB_BE_DOCKER_PROJECT_NAME_ELASTICSTACK=humlib-elasticstack
-alias humlib-be-elasticstack-start="cd ${HUMLIB_BE_DOCKER_HOME_ELASTICSTACK} && docker-compose --project-name ${HUMLIB_BE_DOCKER_PROJECT_NAME_ELASTICSTACK} --profile all --env-file ${HUMLIB_BE_DOCKER_HOME}/.env.local up -d"
-alias humlib-be-elasticstack-start-min="cd ${HUMLIB_BE_DOCKER_HOME_ELASTICSTACK} && docker-compose --project-name ${HUMLIB_BE_DOCKER_PROJECT_NAME_ELASTICSTACK} --profile elastic-only --env-file ${HUMLIB_BE_DOCKER_HOME}/.env.local up -d"
-alias humlib-be-elasticstack-stop="cd ${HUMLIB_BE_DOCKER_HOME_ELASTICSTACK} && docker-compose --project-name ${HUMLIB_BE_DOCKER_PROJECT_NAME_ELASTICSTACK} --profile all --env-file ${HUMLIB_BE_DOCKER_HOME}/.env.local stop"
-alias humlib-be-elasticstack-delete="cd ${HUMLIB_BE_DOCKER_HOME_ELASTICSTACK} && docker-compose --project-name ${HUMLIB_BE_DOCKER_PROJECT_NAME_ELASTICSTACK} --profile all --env-file ${HUMLIB_BE_DOCKER_HOME}/.env.local down -v && rm -rf volumes"
+alias humlib-be-elasticstack-start="(cd ${HUMLIB_BE_DOCKER_HOME_ELASTICSTACK} && docker-compose --project-name ${HUMLIB_BE_DOCKER_PROJECT_NAME_ELASTICSTACK} --profile all up -d)"
+alias humlib-be-elasticstack-start-min="(cd ${HUMLIB_BE_DOCKER_HOME_ELASTICSTACK} && docker-compose --project-name ${HUMLIB_BE_DOCKER_PROJECT_NAME_ELASTICSTACK} --profile elastic-only up -d)"
+alias humlib-be-elasticstack-stop="(cd ${HUMLIB_BE_DOCKER_HOME_ELASTICSTACK} && docker-compose --project-name ${HUMLIB_BE_DOCKER_PROJECT_NAME_ELASTICSTACK} --profile all stop)"
+alias humlib-be-elasticstack-delete="(cd ${HUMLIB_BE_DOCKER_HOME_ELASTICSTACK} && docker-compose --project-name ${HUMLIB_BE_DOCKER_PROJECT_NAME_ELASTICSTACK} --profile all down -v && rm -rf volumes)"
 
 export HUMLIB_BE_DOCKER_HOME_KEYCLOAK=${HUMLIB_BE_DOCKER_HOME}/keycloak
 export HUMLIB_BE_DOCKER_PROJECT_NAME_KEYCLOAK=humlib-keycloak
-alias humlib-be-keycloak-start="cd ${HUMLIB_BE_DOCKER_HOME_KEYCLOAK} && docker-compose --project-name ${HUMLIB_BE_DOCKER_PROJECT_NAME_KEYCLOAK} --env-file ${HUMLIB_BE_DOCKER_HOME}/.env.local up -d"
-alias humlib-be-keycloak-stop="cd ${HUMLIB_BE_DOCKER_HOME_KEYCLOAK} && docker-compose --project-name ${HUMLIB_BE_DOCKER_PROJECT_NAME_KEYCLOAK} --env-file ${HUMLIB_BE_DOCKER_HOME}/.env.local stop"
-alias humlib-be-keycloak-delete="cd ${HUMLIB_BE_DOCKER_HOME_KEYCLOAK} && docker-compose --project-name ${HUMLIB_BE_DOCKER_PROJECT_NAME_KEYCLOAK} --env-file ${HUMLIB_BE_DOCKER_HOME}/.env.local down -v && rm -rf volumes"
+alias humlib-be-keycloak-start="(cd ${HUMLIB_BE_DOCKER_HOME_KEYCLOAK} && docker-compose --project-name ${HUMLIB_BE_DOCKER_PROJECT_NAME_KEYCLOAK} up -d)"
+alias humlib-be-keycloak-stop="(cd ${HUMLIB_BE_DOCKER_HOME_KEYCLOAK} && docker-compose --project-name ${HUMLIB_BE_DOCKER_PROJECT_NAME_KEYCLOAK} stop)"
+alias humlib-be-keycloak-delete="(cd ${HUMLIB_BE_DOCKER_HOME_KEYCLOAK} && docker-compose --project-name ${HUMLIB_BE_DOCKER_PROJECT_NAME_KEYCLOAK} down -v && rm -rf volumes)"
 alias humlib-be-keycloak-export="docker exec -it keycloak /opt/jboss/keycloak/bin/standalone.sh -Djboss.socket.binding.port-offset=100 -Dkeycloak.migration.action=export -Dkeycloak.migration.provider=singleFile -Dkeycloak.migration.realmName=humlib -Dkeycloak.migration.usersExportStrategy=REALM_FILE -Dkeycloak.migration.file=/tmp/realms/humlib-realm.json"
 
 alias humlib-be-start="humlib-be-keycloak-start && humlib-be-elasticstack-start"

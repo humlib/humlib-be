@@ -1,7 +1,7 @@
 services:
   setup:
     profiles: [ "all", "elastic-only" ]
-    image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTICSTACK_VERSION}
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.0.0
     networks:
       - elk
     volumes:
@@ -35,7 +35,7 @@ services:
         echo "Waiting for Elasticsearch availability";
         until curl -s --cacert config/certs/ca/ca.crt https://es01:9200 | grep -q "missing authentication credentials"; do sleep 30; done;
         echo "Setting kibana_system password";
-        until curl -s -X POST --cacert config/certs/ca/ca.crt -u elastic:${ELASTICSTACK_USER_ELASTIC_PASSWORD} -H "Content-Type: application/json" https://es01:9200/_security/user/kibana_system/_password -d "{\"password\":\"${ELASTICSTACK_USER_KIBANA_SYSTEM_PASSWORD}\"}" | grep -q "^{}"; do sleep 10; done;
+        until curl -s -X POST --cacert config/certs/ca/ca.crt -u elastic:elastic -H "Content-Type: application/json" https://es01:9200/_security/user/kibana_system/_password -d "{\"password\":\"kibana_system\"}" | grep -q "^{}"; do sleep 10; done;
         echo "All done!";
       '
     healthcheck:
@@ -49,7 +49,7 @@ services:
     depends_on:
       setup:
         condition: service_healthy
-    image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTICSTACK_VERSION}
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.0.0
     networks:
       - elk
     ports:
@@ -61,11 +61,11 @@ services:
       - "./config/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml"
     environment:
       ES_JAVA_OPTS: -Xmx256m -Xms256m
-      ELASTIC_PASSWORD: ${ELASTICSTACK_USER_ELASTIC_PASSWORD}
+      ELASTIC_PASSWORD: elastic
     deploy:
       resources:
         limits:
-          memory: ${DOCKER_MEM_LIMIT_ELASTICSTACK}
+          memory: "${DOCKER_MEM_LIMIT_ELASTICSTACK:-1G}"
     ulimits:
       memlock:
         soft: -1
@@ -83,11 +83,11 @@ services:
   logstash:
     profiles: [ "all" ]
     environment:
-      ELASTICSTACK_USER_ELASTIC_PASSWORD: ${ELASTICSTACK_USER_ELASTIC_PASSWORD}
+      ELASTICSTACK_USER_ELASTIC_PASSWORD: elastic
     depends_on:
       es01:
         condition: service_healthy
-    image: docker.elastic.co/logstash/logstash:${ELASTICSTACK_VERSION}
+    image: docker.elastic.co/logstash/logstash:8.0.0
     networks:
       - elk
     volumes:
@@ -100,16 +100,16 @@ services:
     deploy:
       resources:
         limits:
-          memory: ${DOCKER_MEM_LIMIT_ELASTICSTACK}
+          memory: "${DOCKER_MEM_LIMIT_ELASTICSTACK:-1G}"
 
   kibana:
     profiles: [ "all" ]
     depends_on:
       es01:
         condition: service_healthy
-    image: docker.elastic.co/kibana/kibana:${ELASTICSTACK_VERSION}
+    image: docker.elastic.co/kibana/kibana:8.0.0
     environment:
-      ELASTICSTACK_USER_KIBANA_SYSTEM_PASSWORD: ${ELASTICSTACK_USER_KIBANA_SYSTEM_PASSWORD}
+      ELASTICSTACK_USER_KIBANA_SYSTEM_PASSWORD: kibana_system
     networks:
       - elk
     volumes:
@@ -121,7 +121,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: ${DOCKER_MEM_LIMIT_ELASTICSTACK}
+          memory: "${DOCKER_MEM_LIMIT_ELASTICSTACK:-1G}"
     healthcheck:
       test:
         [

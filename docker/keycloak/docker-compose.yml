@@ -8,13 +8,13 @@ services:
     volumes:
       - ./realms:/tmp/realms
     environment:
-      KEYCLOAK_USER: ${KEYCLOAK_ADMIN_USERNAME}
-      KEYCLOAK_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
       KEYCLOAK_IMPORT: /tmp/realms/humlib-realm.json
     deploy:
       resources:
         limits:
-          memory: "${DOCKER_MEM_LIMIT_KEYCLOAK}"
+          memory: "${DOCKER_MEM_LIMIT_KEYCLOAK:-1G}"
   mailhog:
     image: mailhog/mailhog:v1.0.1
     hostname: mailhog

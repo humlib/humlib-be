@@ -22,15 +22,13 @@ Other than that, a commit message should follow the pattern `:emoji: Short descr
   using [Docker Compose v2](https://docs.docker.com/compose/cli-command/) ([Compose file documentation](https://github.com/compose-spec/compose-spec/blob/master/spec.md))
 - at least 6GB available memory
 - each docker container uses 1GB memory per default. Change this behaviour per environment via
-    - [DOCKER_MEM_LIMIT_ELASTICSTACK](docker/.env.local 'DOCKER_MEM_LIMIT_ELASTICSTACK')
-    - [DOCKER_MEM_LIMIT_KEYCLOAK](docker/.env.local 'DOCKER_MEM_LIMIT_KEYCLOAK')
+    - DOCKER_MEM_LIMIT_ELASTICSTACK
+    - DOCKER_MEM_LIMIT_KEYCLOAK
 
 ### Setup
 
 - open a terminal
-- navigate to the directory `humlib-be/docker`
-- copy `humlib.profiles` to `humlib.profiles.overrides` and set the absolute path to this repository
-- execute `source humlib.profiles.overrides`
+- execute `HUMLIB_BE_HOME=$(pwd) source docker/humlib.profiles` from the repository root
 
 ### All services
 
@@ -60,10 +58,8 @@ version: [8.0.0](https://www.elastic.co/guide/en/elastic-stack-get-started/8.0/g
 
 #### Built-in users
 
-- superuser: elastic -
-  password: [ELASTICSTACK_USER_ELASTIC_PASSWORD](docker/.env.local 'ELASTICSTACK_USER_ELASTIC_PASSWORD')
-- user: kibana_systems -
-  password: [ELASTICSTACK_USER_KIBANA_SYSTEM_PASSWORD](docker/.env.local 'ELASTICSTACK_USER_KIBANA_SYSTEM_PASSWORD')
+- elastic:elastic (superuser)
+- kibana_system:kibana_system
 
 ### Keycloak
 
@@ -83,5 +79,4 @@ version: [8.0.0](https://www.elastic.co/guide/en/elastic-stack-get-started/8.0/g
 
 #### Built-in users
 
-- admin: [KEYCLOAK_ADMIN_USERNAME](docker/.env.local 'KEYCLOAK_ADMIN_USERNAME') -
-  password: [KEYCLOAK_ADMIN_PASSWORD](docker/.env.local 'KEYCLOAK_ADMIN_PASSWORD')
+- admin:admin
