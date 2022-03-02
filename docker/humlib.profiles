@@ -2,8 +2,8 @@ export HUMLIB_BE_DOCKER_HOME=${HUMLIB_BE_HOME}/docker
 
 export HUMLIB_BE_DOCKER_HOME_ELASTICSTACK=${HUMLIB_BE_DOCKER_HOME}/elasticstack
 export HUMLIB_BE_DOCKER_PROJECT_NAME_ELASTICSTACK=humlib-elasticstack
-alias humlib-be-elasticstack-start="(cd ${HUMLIB_BE_DOCKER_HOME_ELASTICSTACK} && docker-compose --project-name ${HUMLIB_BE_DOCKER_PROJECT_NAME_ELASTICSTACK} --profile all up -d)"
-alias humlib-be-elasticstack-start-min="(cd ${HUMLIB_BE_DOCKER_HOME_ELASTICSTACK} && docker-compose --project-name ${HUMLIB_BE_DOCKER_PROJECT_NAME_ELASTICSTACK} --profile elastic-only up -d)"
+alias humlib-be-elasticstack-start="(cd ${HUMLIB_BE_DOCKER_HOME_ELASTICSTACK} && docker-compose --project-name ${HUMLIB_BE_DOCKER_PROJECT_NAME_ELASTICSTACK} --profile all up -d && sleep 60 && docker rm $(docker ps -a --filter 'exited=0' -q))"
+alias humlib-be-elasticstack-start-min="(cd ${HUMLIB_BE_DOCKER_HOME_ELASTICSTACK} && docker-compose --project-name ${HUMLIB_BE_DOCKER_PROJECT_NAME_ELASTICSTACK} --profile elastic-only up -d && sleep 60 && docker rm $(docker ps -a --filter 'exited=0' -q))"
 alias humlib-be-elasticstack-stop="(cd ${HUMLIB_BE_DOCKER_HOME_ELASTICSTACK} && docker-compose --project-name ${HUMLIB_BE_DOCKER_PROJECT_NAME_ELASTICSTACK} --profile all stop)"
 alias humlib-be-elasticstack-delete="(cd ${HUMLIB_BE_DOCKER_HOME_ELASTICSTACK} && docker-compose --project-name ${HUMLIB_BE_DOCKER_PROJECT_NAME_ELASTICSTACK} --profile all down -v && rm -rf volumes)"
 
