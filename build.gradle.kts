@@ -6,6 +6,7 @@ plugins {
     kotlin("jvm") version "1.6.10"
     kotlin("plugin.spring") version "1.6.10"
     jacoco
+    id("org.openapi.generator") version "5.3.0"
 }
 
 group = "com.humlib"
@@ -49,4 +50,13 @@ tasks.jacocoTestReport {
     reports {
         xml.required.set(true)
     }
+}
+
+tasks.openApiGenerate {
+    generatorName.set("kotlin-spring")
+    inputSpec.set("$rootDir/src/main/resources/openapi.yaml")
+    validateSpec.set(true)
+    apiPackage.set("com.humlib.api")
+    modelPackage.set("com.humlib.model")
+    configOptions.put("delegatePattern", "true")
 }
