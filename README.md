@@ -50,11 +50,11 @@ results are uploaded to [Codacy](https://app.codacy.com/gh/mor4thii/humlib-be/da
 
 - open a terminal
 - variant 1:
-  - set HUMLIB_BE_HOME in your .zshrc or .bashrc `export HUMLIB_BE_HOME="<path>"`
-  - also add `source ${HUMLIB_BE_HOME}/docker/humlib.profiles`
+    - set HUMLIB_BE_HOME in your .zshrc or .bashrc `export HUMLIB_BE_HOME="<path>"`
+    - also add `source ${HUMLIB_BE_HOME}/docker/humlib.profiles`
 - variant 2:
-  - navigate to this directory
-  - execute `HUMLIB_BE_HOME=$(pwd) source docker/humlib.profiles` from the repository root
+    - navigate to this directory
+    - execute `HUMLIB_BE_HOME=$(pwd) source docker/humlib.profiles` from the repository root
 
 ### All services
 
@@ -102,6 +102,8 @@ version: [8.0.0](https://www.elastic.co/guide/en/elastic-stack-get-started/8.0/g
 - keycloak: [https://localhost:8180](https://localhost:8180 'https://localhost:8180')
 - mailhog: [http://localhost:8025](http://localhost:8025 'http://localhost:8025')
 - mailhog (SMTP): [http://localhost:1025](http://localhost:1025 'http://localhost:8025')
+- OIDC realm
+  information: [http://localhost:8180/auth/realms/humlib/.well-known/openid-configuration](http://localhost:8180/auth/realms/humlib/.well-known/openid-configuration 'http://localhost:8180/auth/realms/humlib/.well-known/openid-configuration')
 
 #### Built-in users
 
