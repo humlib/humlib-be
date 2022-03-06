@@ -28,8 +28,7 @@ paths:
       summary: Create user
       security:
         - humlib_auth:
-            - users_write
-            # - write:users
+            - write:users
       description: This can only be done by the logged in user.
       operationId: createUser
       requestBody:
@@ -51,8 +50,7 @@ paths:
       summary: Get user by user id
       security:
         - humlib_auth:
-            - users_read
-            # - read:users
+            - read:users
       operationId: getUserById
       parameters:
         - name: id
@@ -92,14 +90,11 @@ components:
           type: string
   securitySchemes:
     humlib_auth:
-      type: openIdConnect
-      openIdConnectUrl: http://localhost:8180/auth/realms/humlib/.well-known/openid-configuration
-#    humlib_oauth2:
-#      type: oauth2
-#      flows:
-#        authorizationCode:
-#          authorizationUrl: http://localhost:8180/auth/realms/humlib/protocol/openid-connect/auth
-#          tokenUrl: http://localhost:8180/auth/realms/humlib/protocol/openid-connect/token
-#          scopes:
-#            write:users: Modify user details
-#            read:users: Get user details
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: http://localhost:8180/auth/realms/humlib/protocol/openid-connect/auth
+          tokenUrl: http://localhost:8180/auth/realms/humlib/protocol/openid-connect/token
+          scopes:
+            write:users: Modify user details
+            read:users: Get user details
