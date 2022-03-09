@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.1.0
 info:
-  title: HumLib - The Human Library in Computer Science
+  title: humlib-be
   description: 'This is the API specification for HumLib - the Human Library in Computer Science. This project aims to bring together children interested in the plethora of topics in IT and computer science experts.'
   termsOfService: http://example.org
   contact:
@@ -21,36 +21,11 @@ tags:
       description: Find out more about HumLib
       url: http://example.org
 paths:
-  /user:
-    post:
-      tags:
-        - user
-      summary: Create user
-      security:
-        - humlib_auth:
-            - write:users
-      description: This can only be done by the logged in user.
-      operationId: createUser
-      requestBody:
-        description: Created user object
-        content:
-          '*/*':
-            schema:
-              $ref: '#/components/schemas/User'
-        required: true
-      responses:
-        default:
-          description: successful operation
-          content: { }
-      x-codegen-request-body-name: body
   /user/{id}:
     get:
       tags:
         - user
       summary: Get user by user id
-      security:
-        - humlib_auth:
-            - read:users
       operationId: getUserById
       parameters:
         - name: id
@@ -58,7 +33,8 @@ paths:
           description: 'The user id that needs to be fetched.'
           required: true
           schema:
-            type: integer
+            type: string
+            format: uuid
       responses:
         200:
           description: successful operation
@@ -78,23 +54,18 @@ components:
       type: object
       properties:
         id:
-          type: integer
-          format: int64
-        username:
           type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        email:
-          type: string
+          format: uuid
   securitySchemes:
     humlib_auth:
       type: oauth2
+      description: HumLib's backend represents a resource server. The frontend is a public client. We use authorizationCode w/ PKCE
       flows:
         authorizationCode:
           authorizationUrl: http://localhost:8180/auth/realms/humlib/protocol/openid-connect/auth
           tokenUrl: http://localhost:8180/auth/realms/humlib/protocol/openid-connect/token
           scopes:
-            write:users: Modify user details
-            read:users: Get user details
+            users: Modify user details
+security:
+  - humlib_auth:
+      - users
