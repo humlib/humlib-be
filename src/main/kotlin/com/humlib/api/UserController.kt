@@ -12,7 +12,7 @@ import java.util.*
 @RestController
 class UserController {
     @GetMapping("/user/{id}")
-    @PreAuthorize("hasAuthority('SCOPE_users')")
+    @PreAuthorize("hasPermission(#id, 'com.humlib.model.User', 'users')")
     fun getUser(@PathVariable id: UUID, authentication: Authentication): ResponseEntity<User> =
         ResponseEntity.ok(User(id = UUID.fromString(authentication.name)))
 }
