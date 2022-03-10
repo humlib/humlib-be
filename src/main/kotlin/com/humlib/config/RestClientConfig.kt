@@ -5,6 +5,7 @@ import org.apache.http.auth.AuthScope
 import org.apache.http.auth.UsernamePasswordCredentials
 import org.apache.http.impl.client.BasicCredentialsProvider
 import org.apache.http.impl.nio.client.HttpAsyncClientBuilder
+import org.apache.http.message.BasicHeader
 import org.elasticsearch.client.RestClient
 import org.elasticsearch.client.RestHighLevelClient
 import org.springframework.context.annotation.Bean
@@ -67,6 +68,14 @@ class RestClientConfig(private val config: ElasticsearchConfig) : AbstractElasti
             HttpHost(config.host, config.port, config.scheme)
         ).setHttpClientConfigCallback { httpClientBuilder: HttpAsyncClientBuilder ->
             httpClientBuilder.setDefaultCredentialsProvider(credentialsProvider)
+            httpClientBuilder.setDefaultHeaders(
+                mutableListOf(
+                    BasicHeader("Accept", "application/vnd.elasticsearch+json;compatible-with=7"), BasicHeader(
+                        "Content-Type", "application/vnd.elasticsearch+json;"
+                                + "compatible-with=7"
+                    )
+                )
+            )
             httpClientBuilder.setSSLContext(context)
         }
         return RestHighLevelClient(restClientBuilder)
