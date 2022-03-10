@@ -3,7 +3,7 @@ package com.humlib.dao
 import org.springframework.data.annotation.Id
 import org.springframework.data.elasticsearch.annotations.Document
 
-@Document(indexName = "my-index")
+@Document(indexName = "humlib-person")
 data class Person(
     @Id
     val id: String? = null,
