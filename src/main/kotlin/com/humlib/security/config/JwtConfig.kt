@@ -8,7 +8,7 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtGra
 @Configuration
 class JwtConfig {
     @Bean
-    fun jwtAuthenticationConverter(): JwtAuthenticationConverter {
+    fun convertRolesClaimToAuthorities(): JwtAuthenticationConverter {
         val grantedAuthoritiesConverter = JwtGrantedAuthoritiesConverter()
         grantedAuthoritiesConverter.setAuthoritiesClaimName("roles")
 
