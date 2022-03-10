@@ -1,0 +1,25 @@
+{
+  "attributes": {
+    "fieldAttrs": "{}",
+    "fields": "[]",
+    "runtimeFieldMap": "{}",
+    "title": "humlib*",
+    "typeMeta": "{}"
+  },
+  "coreMigrationVersion": "8.0.0",
+  "id": "248f35e0-a0b6-11ec-be22-9594e5c6fa7f",
+  "migrationVersion": {
+    "index-pattern": "8.0.0"
+  },
+  "references": [],
+  "type": "index-pattern",
+  "updated_at": "2022-03-10T21:07:49.987Z",
+  "version": "WzE5NjAsNF0="
+}
+{
+  "excludedObjects": [],
+  "excludedObjectsCount": 0,
+  "exportedCount": 1,
+  "missingRefCount": 0,
+  "missingReferences": []
+}
