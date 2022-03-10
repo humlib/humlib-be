@@ -1,8 +1,8 @@
 package com.humlib.api
 
 import com.humlib.model.User
+import com.humlib.security.annotations.IsUserWithSameId
 import org.springframework.http.ResponseEntity
-import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.security.core.Authentication
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -12,7 +12,7 @@ import java.util.*
 @RestController
 class UserController {
     @GetMapping("/user/{id}")
-    @PreAuthorize("hasPermission(#id, 'com.humlib.model.User', 'users')")
+    @IsUserWithSameId
     fun getUser(@PathVariable id: UUID, authentication: Authentication): ResponseEntity<User> =
         ResponseEntity.ok(User(id = UUID.fromString(authentication.name)))
 }
