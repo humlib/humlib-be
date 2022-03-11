@@ -7,6 +7,8 @@ spring:
           jwk-set-uri: http://localhost:8180/auth/realms/humlib/protocol/openid-connect/certs
 logging:
   level:
+    com:
+      humlib: DEBUG
     org:
       springframework:
-        security: DEBUG
+        security: TRACE

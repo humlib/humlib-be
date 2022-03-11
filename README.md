@@ -37,8 +37,8 @@ results are uploaded to [Codacy](https://app.codacy.com/gh/mor4thii/humlib-be/da
 
 ## API first
 
-We use [OASv3.1](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md) and generate the controller
-layer of humlib-be from it. To edit the API specification, please
+We use [OASv3.1](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md) to define humlib-be's API. To
+edit the API specification, please
 use [Postman](https://humlib.postman.co/workspace/HumLib~ad065858-1612-464c-bb89-1992625514ab/overview). Contact one of
 the team members to get access.
 
@@ -117,3 +117,11 @@ version: [8.0.0](https://www.elastic.co/guide/en/elastic-stack-get-started/8.0/g
 #### Built-in users
 
 - admin:admin
+
+### Actuator
+
+For observing the state of the application, you can use Spring's Actuator endpoints offered at port 8081:
+
+- [health](http://localhost:8081/actuator/health 'http://localhost:8081/actuator/health')
+- [liveness](http://localhost:8081/actuator/health/liveness 'http://localhost:8081/actuator/health/liveness')
+- [readiness](http://localhost:8081/actuator/health/readiness 'http://localhost:8081/actuator/health/readiness')
