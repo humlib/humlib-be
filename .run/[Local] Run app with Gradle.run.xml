@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="All tests" type="GradleRunConfiguration" factoryName="Gradle">
+  <configuration default="false" name="[Local] Run app with Gradle" type="GradleRunConfiguration" factoryName="Gradle">
     <ExternalSystemSettings>
       <option name="executionName" />
       <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -10,16 +10,13 @@
       </option>
       <option name="taskNames">
         <list>
-          <option value="test" />
+          <option value="bootRun" />
         </list>
       </option>
       <option name="vmOptions" />
     </ExternalSystemSettings>
     <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
     <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-    <EXTENSION ID="com.intellij.execution.ExternalSystemRunConfigurationJavaExtension">
-      <extension name="coverage" sample_coverage="false" runner="jacoco" />
-    </EXTENSION>
     <DebugAllEnabled>false</DebugAllEnabled>
     <method v="2" />
   </configuration>

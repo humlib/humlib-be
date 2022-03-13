@@ -1,0 +1,19 @@
+package com.humlib.security.config
+
+import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Configuration
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter
+import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter
+
+@Configuration
+class JwtConfig {
+    @Bean
+    fun convertRolesClaimToAuthorities(): JwtAuthenticationConverter {
+        val grantedAuthoritiesConverter = JwtGrantedAuthoritiesConverter()
+        grantedAuthoritiesConverter.setAuthoritiesClaimName("roles")
+
+        val jwtAuthenticationConverter = JwtAuthenticationConverter()
+        jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(grantedAuthoritiesConverter)
+        return jwtAuthenticationConverter
+    }
+}
