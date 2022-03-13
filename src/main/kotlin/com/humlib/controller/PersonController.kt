@@ -1,6 +1,6 @@
 package com.humlib.controller
 
-import com.humlib.dao.Person
+import com.humlib.model.Person
 import com.humlib.repository.PersonRepository
 import org.springframework.web.bind.annotation.*
 import java.util.*

@@ -1,4 +1,4 @@
-package com.humlib.dao
+package com.humlib.model
 
 import org.springframework.data.annotation.Id
 import org.springframework.data.elasticsearch.annotations.Document
