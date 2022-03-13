@@ -1,0 +1,71 @@
+openapi: 3.1.0
+info:
+  title: humlib-be
+  description: 'This is the API specification for HumLib - the Human Library in Computer Science. This project aims to bring together children interested in the plethora of topics in IT and computer science experts.'
+  termsOfService: http://example.org
+  contact:
+    email: admin@humlib
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/mit-license.php
+  version: 0.0.1
+externalDocs:
+  description: Find out more about HumLib
+  url: http://example.org
+servers:
+  - url: http://localhost:8080/
+tags:
+  - name: user
+    description: Operations about user
+    externalDocs:
+      description: Find out more about HumLib
+      url: http://example.org
+paths:
+  /user/{id}:
+    get:
+      tags:
+        - user
+      summary: Get user by user id
+      operationId: getUserById
+      parameters:
+        - name: id
+          in: path
+          description: 'The user id that needs to be fetched.'
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        400:
+          description: Invalid user id supplied
+          content: { }
+        404:
+          description: User not found
+          content: { }
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+  securitySchemes:
+    humlib_auth:
+      type: oauth2
+      description: HumLib's backend represents a resource server. The frontend is a public client. We use authorizationCode w/ PKCE
+      flows:
+        authorizationCode:
+          authorizationUrl: http://localhost:8180/auth/realms/humlib/protocol/openid-connect/auth
+          tokenUrl: http://localhost:8180/auth/realms/humlib/protocol/openid-connect/token
+          scopes:
+            users: Modify user details
+security:
+  - humlib_auth:
+      - users

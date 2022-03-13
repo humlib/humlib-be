@@ -1,0 +1,7 @@
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8180/auth/realms/example
+          jwk-set-uri: http://localhost:8180/auth/realms/example/protocol/openid-connect/certs

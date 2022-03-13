@@ -1,7 +1,25 @@
-
 application:
   title: HumLib - The Human Library in Computer Science
   version: 0.0.1
+
+server:
+  port: 8080
+
+management:
+  endpoints:
+    enabled-by-default: false
+  endpoint:
+    health:
+      enabled: true
+      probes:
+        enabled: true
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
+  server:
+    port: 8081
 
 elasticsearch:
   scheme: https

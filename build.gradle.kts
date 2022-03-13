@@ -6,6 +6,7 @@ plugins {
     kotlin("jvm") version "1.6.10"
     kotlin("plugin.spring") version "1.6.10"
     jacoco
+    id("org.openapi.generator") version "5.3.0"
 }
 
 group = "com.humlib"
@@ -20,6 +21,8 @@ repositories {
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
+    implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
     implementation("org.springframework.data:spring-data-elasticsearch")
 
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
@@ -28,6 +31,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.springframework.security:spring-security-test")
 }
 
 tasks.withType<KotlinCompile> {
@@ -50,4 +54,13 @@ tasks.jacocoTestReport {
     reports {
         xml.required.set(true)
     }
+}
+
+tasks.openApiGenerate {
+    generatorName.set("kotlin-spring")
+    inputSpec.set("$rootDir/src/main/resources/openapi.yaml")
+    validateSpec.set(true)
+    apiPackage.set("com.humlib.api")
+    modelPackage.set("com.humlib.model")
+    configOptions.put("delegatePattern", "true")
 }
