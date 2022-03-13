@@ -25,14 +25,38 @@ class HumanProfileController(
         // TODO what happens if the human id cannot be found? -> send 404 response
     }
 
-    @GetMapping("/search")
-    fun findByTags(
+    @GetMapping("/search/contains_all")
+    fun findByAllTagsForPage(
         @RequestParam pageNo: Int,
         @RequestParam pageSize: Int,
         @RequestBody humanProfileTags: HumanProfileTags
     ): List<HumanProfile> {
         val paging: Pageable = PageRequest.of(pageNo, pageSize)
-        val pagedResult = humanProfileRepository.findByFilteredTagQuery(humanProfileTags.tags, paging)
+        val pagedResult = humanProfileRepository.containsAtLeastNumberOfGivenTags(
+            humanProfileTags.tags,
+            humanProfileTags.tags.size,
+            paging
+        )
+        return if (pagedResult.hasContent()) {
+            pagedResult.content
+        } else {
+            ArrayList()
+        }
+    }
+
+    @GetMapping("/search/contains")
+    fun findByAtLeastNumberOfTagsForPage(
+        @RequestParam atLeastNumberOfMatches: Int?,
+        @RequestParam pageNo: Int,
+        @RequestParam pageSize: Int,
+        @RequestBody humanProfileTags: HumanProfileTags
+    ): List<HumanProfile> {
+        val paging: Pageable = PageRequest.of(pageNo, pageSize)
+        val pagedResult = humanProfileRepository.containsAtLeastNumberOfGivenTags(
+            humanProfileTags.tags,
+            atLeastNumberOfMatches ?: 1,
+            paging
+        )
         return if (pagedResult.hasContent()) {
             pagedResult.content
         } else {

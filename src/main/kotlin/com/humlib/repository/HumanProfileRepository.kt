@@ -7,6 +7,10 @@ import org.springframework.data.elasticsearch.annotations.Query
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository
 
 interface HumanProfileRepository : ElasticsearchRepository<HumanProfile, String> {
-    @Query("{\"bool\": {\"must\": {\"match_all\": {}}, \"filter\": {\"terms\": {\"tags\": ?0 }}}}")
-    fun findByFilteredTagQuery(tags: List<String>, pageable: Pageable?): Page<HumanProfile>
+    @Query("{\"terms_set\": {\"tags\": {\"terms\": ?0 , \"minimum_should_match_script\": {\"source\": \"?1\" }}}}")
+    fun containsAtLeastNumberOfGivenTags(
+        tags: List<String>,
+        numberOfMatches: Int,
+        pageable: Pageable?
+    ): Page<HumanProfile>
 }
