@@ -20,7 +20,7 @@ jobs:
           java-version: "17"
           cache: "maven"
       - name: "Execute maven build"
-        run: ./mvnw clean verify
+        run: ./mvnw -B clean verify
       - name: "Save test results as artifact"
         if: always()
         uses: actions/upload-artifact@v2
