@@ -45,7 +45,7 @@ class RestClientConfig(private val config: ElasticsearchConfig) : AbstractElasti
         ks.load(null, null)
 
         // GET THE FILE CONTAINING YOUR CERTIFICATE
-        val fis = FileInputStream(System.getenv("HUMLIB_BE_DOCKER_HOME") + "/elasticstack/volumes/certs/ca/ca.crt")
+        val fis = FileInputStream(System.getenv("HUMLIB_BE_DOCKER_HOME") + "/elasticstack/config/certs/ca/ca.crt")
         val bis = BufferedInputStream(fis)
 
         // .crt is an extension of X.509 type
