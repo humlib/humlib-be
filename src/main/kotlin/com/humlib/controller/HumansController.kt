@@ -7,24 +7,23 @@ import org.springframework.security.core.Authentication
 import org.springframework.web.bind.annotation.*
 import java.util.*
 
-
 @RestController
-@RequestMapping("/profile/{id}")
+@RequestMapping("/humans/{id}")
 @IsHumanWithSameId
-class HumanProfileController(
+class HumansController(
     val humanProfileRepository: HumanProfileRepository
 ) {
 
     @GetMapping
-    fun getById(@PathVariable id: UUID, authentication: Authentication): HumanProfile {
+    fun getHuman(@PathVariable id: UUID, authentication: Authentication): HumanProfile {
         return humanProfileRepository.findById(id).get()
     }
 
     @PostMapping
-    fun saveById(
+    fun saveHuman(
         @PathVariable id: UUID,
+        @RequestBody humanProfile: HumanProfile,
         authentication: Authentication,
-        @RequestBody humanProfile: HumanProfile
     ): HumanProfile {
         val newHumanProfile = humanProfile.copy(id = id)
         humanProfileRepository.save(newHumanProfile)
@@ -32,7 +31,7 @@ class HumanProfileController(
     }
 
     @DeleteMapping
-    fun deleteById(@PathVariable id: UUID, authentication: Authentication) {
+    fun deleteHuman(@PathVariable id: UUID, authentication: Authentication) {
         humanProfileRepository.deleteById(id)
     }
 }

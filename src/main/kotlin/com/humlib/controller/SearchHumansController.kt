@@ -8,7 +8,6 @@ import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
 import org.springframework.web.bind.annotation.*
 
-
 @RestController
 @RequestMapping("/search")
 @IsKid
@@ -16,13 +15,13 @@ class SearchHumansController(
     val humanProfileRepository: HumanProfileRepository
 ) {
 
-    @GetMapping("/all")
-    fun getAll(): List<HumanProfile> {
+    @GetMapping
+    fun getAllHumans(): List<HumanProfile> {
         return humanProfileRepository.findAll().toList()
     }
 
     @GetMapping("/contains_all")
-    fun findByAllTagsForPage(
+    fun containsAll(
         @RequestParam pageNo: Int,
         @RequestParam pageSize: Int,
         @RequestBody humanProfileTags: HumanProfileTags
@@ -41,8 +40,8 @@ class SearchHumansController(
     }
 
     @GetMapping("/contains")
-    fun findByAtLeastNumberOfTagsForPage(
-        @RequestParam atLeastNumberOfMatches: Int?,
+    fun contains(
+        @RequestParam matchesAtLeast: Int?,
         @RequestParam pageNo: Int,
         @RequestParam pageSize: Int,
         @RequestBody humanProfileTags: HumanProfileTags
@@ -50,7 +49,7 @@ class SearchHumansController(
         val paging: Pageable = PageRequest.of(pageNo, pageSize)
         val pagedResult = humanProfileRepository.containsAtLeastNumberOfGivenTags(
             humanProfileTags.tags,
-            atLeastNumberOfMatches ?: 1,
+            matchesAtLeast ?: 1,
             paging
         )
         return if (pagedResult.hasContent()) {
