@@ -16,7 +16,7 @@ class SearchHumansController(
 ) {
 
     @GetMapping
-    fun getAllHumans(): List<HumanProfile> {
+    fun getAll(): List<HumanProfile> {
         return humanProfileRepository.findAll().toList()
     }
 
