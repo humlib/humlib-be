@@ -3,6 +3,7 @@ package com.humlib.controller
 import com.humlib.model.HumanProfile
 import com.humlib.model.HumanProfileTags
 import com.humlib.repository.HumanProfileRepository
+import com.humlib.security.annotations.IsHumanWithSameId
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
 import org.springframework.web.bind.annotation.*
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/profile")
+@IsHumanWithSameId
 class HumanProfileController(
     val humanProfileRepository: HumanProfileRepository
 ) {

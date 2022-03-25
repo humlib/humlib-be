@@ -1,7 +1,7 @@
 package com.humlib.api
 
 import com.humlib.model.User
-import com.humlib.security.annotations.IsUserWithSameId
+import com.humlib.security.annotations.IsHumanWithSameId
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.Authentication
 import org.springframework.web.bind.annotation.GetMapping
@@ -12,7 +12,7 @@ import java.util.*
 @RestController
 class UserController {
     @GetMapping("/user/{id}")
-    @IsUserWithSameId
+    @IsHumanWithSameId
     fun getUser(@PathVariable id: UUID, authentication: Authentication): ResponseEntity<User> =
         ResponseEntity.ok(User(id = UUID.fromString(authentication.name)))
 }
