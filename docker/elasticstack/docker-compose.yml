@@ -5,7 +5,7 @@ services:
     networks:
       - elk
     volumes:
-      - "./volumes/certs:/usr/share/elasticsearch/config/certs"
+      - "./config/certs:/usr/share/elasticsearch/config/certs"
     user: "0"
     command: >
       bash -c '
@@ -56,7 +56,7 @@ services:
       - "9200:9200"
       - "9300:9300"
     volumes:
-      - "./volumes/certs:/usr/share/elasticsearch/config/certs"
+      - "./config/certs:/usr/share/elasticsearch/config/certs"
       - "./volumes/esdata01:/usr/share/elasticsearch/data"
       - "./config/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml"
     environment:
@@ -91,7 +91,7 @@ services:
     networks:
       - elk
     volumes:
-      - "./volumes/certs:/usr/share/logstash/certs"
+      - "./config/certs:/usr/share/logstash/certs"
       - "./volumes/logstashdata:/usr/share/logstash/data"
       - "./config/logstash:/usr/share/logstash/config"
       - "../logs/:/var/log/local_development"
@@ -113,7 +113,7 @@ services:
     networks:
       - elk
     volumes:
-      - "./volumes/certs:/usr/share/kibana/config/certs"
+      - "./config/certs:/usr/share/kibana/config/certs"
       - "./volumes/kibanadata:/usr/share/kibana/data"
       - "./config/kibana/kibana.yml:/usr/share/kibana/config/kibana.yml"
     ports:
