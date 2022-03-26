@@ -6,13 +6,13 @@ import org.springframework.data.elasticsearch.annotations.Field
 import org.springframework.data.elasticsearch.annotations.FieldType
 import java.util.*
 
-@Document(indexName = "humlib-humanprofile")
+@Document(indexName = "humlib-human")
 data class Human(
     @Id
     val id: UUID?,
 
-    @Field(type = FieldType.Keyword)
-    val tags: List<String>,
+    @Field(type = FieldType.Nested)
+    val tags: Tags,
 
     @Field(type = FieldType.Keyword)
     val profession: String,

@@ -7,8 +7,8 @@ import org.springframework.data.elasticsearch.annotations.Query
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository
 import java.util.*
 
-interface HumanProfileRepository : ElasticsearchRepository<Human, UUID> {
-    @Query("{\"terms_set\": {\"tags\": {\"terms\": ?0 , \"minimum_should_match_script\": {\"source\": \"?1\" }}}}")
+interface HumansRepository : ElasticsearchRepository<Human, UUID> {
+    @Query("{\"terms_set\": {\"tags.tags\": {\"terms\": ?0 , \"minimum_should_match_script\": {\"source\": \"?1\" }}}}")
     fun containsAtLeastNumberOfGivenTags(
         tags: List<String>,
         numberOfMatches: Int,

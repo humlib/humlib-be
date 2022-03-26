@@ -1,7 +1,8 @@
 package com.humlib.controller
 
-import com.humlib.model.Human
-import com.humlib.model.HumansTags
+import com.humlib.controller.dto.HumanDTO
+import com.humlib.controller.dto.TagsDTO
+import com.humlib.controller.dto.toDtos
 import com.humlib.security.annotations.IsKid
 import com.humlib.service.SearchHumansService
 import org.springframework.data.domain.PageRequest
@@ -13,19 +14,22 @@ import org.springframework.web.bind.annotation.*
 class SearchHumansController(
     val searchHumansService: SearchHumansService
 ) {
-
     @GetMapping
-    fun getAll(): List<Human> {
-        return searchHumansService.getAllHumans()
+    fun getAll(): List<HumanDTO> {
+        return searchHumansService
+            .getAllHumans()
+            .toDtos()
     }
 
     @GetMapping("/contains_all")
     fun containsAll(
         @RequestParam pageNo: Int,
         @RequestParam pageSize: Int,
-        @RequestBody humansTags: HumansTags
-    ): List<Human> {
-        return searchHumansService.searchContainsAllHumans(PageRequest.of(pageNo, pageSize), humansTags)
+        @RequestBody tags: TagsDTO
+    ): List<HumanDTO> {
+        return searchHumansService
+            .searchContainsAllHumans(PageRequest.of(pageNo, pageSize), tags.entity())
+            .toDtos()
     }
 
     @GetMapping("/contains")
@@ -33,8 +37,10 @@ class SearchHumansController(
         @RequestParam pageNo: Int,
         @RequestParam pageSize: Int,
         @RequestParam matchesAtLeast: Int?,
-        @RequestBody humansTags: HumansTags
-    ): List<Human> {
-        return searchHumansService.searchContainsHumans(PageRequest.of(pageNo, pageSize), humansTags, matchesAtLeast)
+        @RequestBody tags: TagsDTO
+    ): List<HumanDTO> {
+        return searchHumansService
+            .searchContainsHumans(PageRequest.of(pageNo, pageSize), tags.entity(), matchesAtLeast)
+            .toDtos()
     }
 }

@@ -1,6 +1,6 @@
 package com.humlib.controller
 
-import com.humlib.model.Human
+import com.humlib.controller.dto.HumanDTO
 import com.humlib.security.annotations.IsHumanWithSameId
 import com.humlib.service.HumansService
 import org.springframework.security.core.Authentication
@@ -13,19 +13,18 @@ import java.util.*
 class HumansController(
     val humansService: HumansService
 ) {
-
     @GetMapping
-    fun getHuman(@PathVariable id: UUID, authentication: Authentication): Human {
-        return humansService.findHumanById(id)
+    fun getHuman(@PathVariable id: UUID, authentication: Authentication): HumanDTO {
+        return HumanDTO.from(humansService.findHumanById(id))
     }
 
     @PostMapping
     fun saveHuman(
         @PathVariable id: UUID,
-        @RequestBody human: Human,
+        @RequestBody human: HumanDTO,
         authentication: Authentication,
-    ): Human {
-        return humansService.saveAndUpdateHumanById(id, human)
+    ): HumanDTO {
+        return HumanDTO.from(humansService.saveAndUpdateHumanById(id, human.entity()))
     }
 
     @DeleteMapping

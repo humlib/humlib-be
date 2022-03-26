@@ -1,28 +1,28 @@
 package com.humlib.service
 
 import com.humlib.model.Human
-import com.humlib.model.HumansTags
-import com.humlib.repository.HumanProfileRepository
+import com.humlib.model.Tags
+import com.humlib.repository.HumansRepository
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 
 @Service
 class SearchHumansService(
-    private val humanProfileRepository: HumanProfileRepository
+    private val humansRepository: HumansRepository
 ) {
 
     fun getAllHumans(): List<Human> {
-        return humanProfileRepository.findAll().toList()
+        return humansRepository.findAll().toList()
     }
 
     /**
      * Pageable search request.
-     * Return all @return[Human] whose profile matches to all given @param[humansTags]
+     * Return all @return[Human] whose profile matches to all given @param[tags]
      */
-    fun searchContainsAllHumans(paging: Pageable, humansTags: HumansTags): List<Human> {
-        val pagedResult = humanProfileRepository.containsAtLeastNumberOfGivenTags(
-            humansTags.tags,
-            humansTags.tags.size,
+    fun searchContainsAllHumans(paging: Pageable, tags: Tags): List<Human> {
+        val pagedResult = humansRepository.containsAtLeastNumberOfGivenTags(
+            tags.tags,
+            tags.tags.size,
             paging
         )
         return if (pagedResult.hasContent()) {
@@ -34,15 +34,15 @@ class SearchHumansService(
 
     /**
      * Pageable search request.
-     * Return all @return[Human] whose profile matches at least a number (@param[matchesAtLeast]) of given @param[humansTags].
+     * Return all @return[Human] whose profile matches at least a number (@param[matchesAtLeast]) of given @param[tags].
      * If the param @param[matchesAtLeast] is not given, profiles with at least one match will be searched.
      */
-    fun searchContainsHumans(paging: Pageable, humansTags: HumansTags, matchesAtLeast: Int?): List<Human> {
+    fun searchContainsHumans(paging: Pageable, tags: Tags, matchesAtLeast: Int?): List<Human> {
         if (matchesAtLeast != null && matchesAtLeast <= 0) {
-            throw IllegalArgumentException("""search param "matchesAtLeast" must be positive""");
+            throw IllegalArgumentException("""search param "matchesAtLeast" must be positive""")
         }
-        val pagedResult = humanProfileRepository.containsAtLeastNumberOfGivenTags(
-            humansTags.tags,
+        val pagedResult = humansRepository.containsAtLeastNumberOfGivenTags(
+            tags.tags,
             matchesAtLeast ?: 1,
             paging
         )
