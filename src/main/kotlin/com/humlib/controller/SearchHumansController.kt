@@ -2,22 +2,21 @@ package com.humlib.controller
 
 import com.humlib.model.Human
 import com.humlib.model.HumansTags
-import com.humlib.repository.HumanProfileRepository
 import com.humlib.security.annotations.IsKid
+import com.humlib.service.SearchHumansService
 import org.springframework.data.domain.PageRequest
-import org.springframework.data.domain.Pageable
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/search")
 @IsKid
 class SearchHumansController(
-    val humanProfileRepository: HumanProfileRepository
+    val searchHumansService: SearchHumansService
 ) {
 
     @GetMapping
     fun getAll(): List<Human> {
-        return humanProfileRepository.findAll().toList()
+        return searchHumansService.getAllHumans()
     }
 
     @GetMapping("/contains_all")
@@ -26,36 +25,16 @@ class SearchHumansController(
         @RequestParam pageSize: Int,
         @RequestBody humansTags: HumansTags
     ): List<Human> {
-        val paging: Pageable = PageRequest.of(pageNo, pageSize)
-        val pagedResult = humanProfileRepository.containsAtLeastNumberOfGivenTags(
-            humansTags.tags,
-            humansTags.tags.size,
-            paging
-        )
-        return if (pagedResult.hasContent()) {
-            pagedResult.content
-        } else {
-            ArrayList()
-        }
+        return searchHumansService.searchContainsAllHumans(PageRequest.of(pageNo, pageSize), humansTags)
     }
 
     @GetMapping("/contains")
     fun contains(
-        @RequestParam matchesAtLeast: Int?,
         @RequestParam pageNo: Int,
         @RequestParam pageSize: Int,
+        @RequestParam matchesAtLeast: Int?,
         @RequestBody humansTags: HumansTags
     ): List<Human> {
-        val paging: Pageable = PageRequest.of(pageNo, pageSize)
-        val pagedResult = humanProfileRepository.containsAtLeastNumberOfGivenTags(
-            humansTags.tags,
-            matchesAtLeast ?: 1,
-            paging
-        )
-        return if (pagedResult.hasContent()) {
-            pagedResult.content
-        } else {
-            ArrayList()
-        }
+        return searchHumansService.searchContainsHumans(PageRequest.of(pageNo, pageSize), humansTags, matchesAtLeast)
     }
 }

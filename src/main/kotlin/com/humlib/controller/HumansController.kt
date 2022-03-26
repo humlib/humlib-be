@@ -1,8 +1,8 @@
 package com.humlib.controller
 
 import com.humlib.model.Human
-import com.humlib.repository.HumanProfileRepository
 import com.humlib.security.annotations.IsHumanWithSameId
+import com.humlib.service.HumansService
 import org.springframework.security.core.Authentication
 import org.springframework.web.bind.annotation.*
 import java.util.*
@@ -11,12 +11,12 @@ import java.util.*
 @RequestMapping("/humans/{id}")
 @IsHumanWithSameId
 class HumansController(
-    val humanProfileRepository: HumanProfileRepository
+    val humansService: HumansService
 ) {
 
     @GetMapping
     fun getHuman(@PathVariable id: UUID, authentication: Authentication): Human {
-        return humanProfileRepository.findById(id).get()
+        return humansService.findHumanById(id)
     }
 
     @PostMapping
@@ -25,13 +25,11 @@ class HumansController(
         @RequestBody human: Human,
         authentication: Authentication,
     ): Human {
-        val newHumanProfile = human.copy(id = id)
-        humanProfileRepository.save(newHumanProfile)
-        return newHumanProfile
+        return humansService.saveAndUpdateHumanById(id, human)
     }
 
     @DeleteMapping
     fun deleteHuman(@PathVariable id: UUID, authentication: Authentication) {
-        humanProfileRepository.deleteById(id)
+        humansService.deleteHumanById(id)
     }
 }
