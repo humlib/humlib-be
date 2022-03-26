@@ -1,7 +1,7 @@
 package com.humlib.controller
 
-import com.humlib.model.HumanProfile
-import com.humlib.model.HumanProfileTags
+import com.humlib.model.Human
+import com.humlib.model.HumansTags
 import com.humlib.repository.HumanProfileRepository
 import com.humlib.security.annotations.IsKid
 import org.springframework.data.domain.PageRequest
@@ -16,7 +16,7 @@ class SearchHumansController(
 ) {
 
     @GetMapping
-    fun getAll(): List<HumanProfile> {
+    fun getAll(): List<Human> {
         return humanProfileRepository.findAll().toList()
     }
 
@@ -24,12 +24,12 @@ class SearchHumansController(
     fun containsAll(
         @RequestParam pageNo: Int,
         @RequestParam pageSize: Int,
-        @RequestBody humanProfileTags: HumanProfileTags
-    ): List<HumanProfile> {
+        @RequestBody humansTags: HumansTags
+    ): List<Human> {
         val paging: Pageable = PageRequest.of(pageNo, pageSize)
         val pagedResult = humanProfileRepository.containsAtLeastNumberOfGivenTags(
-            humanProfileTags.tags,
-            humanProfileTags.tags.size,
+            humansTags.tags,
+            humansTags.tags.size,
             paging
         )
         return if (pagedResult.hasContent()) {
@@ -44,11 +44,11 @@ class SearchHumansController(
         @RequestParam matchesAtLeast: Int?,
         @RequestParam pageNo: Int,
         @RequestParam pageSize: Int,
-        @RequestBody humanProfileTags: HumanProfileTags
-    ): List<HumanProfile> {
+        @RequestBody humansTags: HumansTags
+    ): List<Human> {
         val paging: Pageable = PageRequest.of(pageNo, pageSize)
         val pagedResult = humanProfileRepository.containsAtLeastNumberOfGivenTags(
-            humanProfileTags.tags,
+            humansTags.tags,
             matchesAtLeast ?: 1,
             paging
         )

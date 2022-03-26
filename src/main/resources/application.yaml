@@ -20,10 +20,3 @@ management:
       enabled: true
   server:
     port: 8081
-
-elasticsearch:
-  scheme: https
-  host: localhost
-  port: 9200
-  username: elastic
-  password: elastic

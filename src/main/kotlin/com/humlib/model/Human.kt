@@ -7,19 +7,19 @@ import org.springframework.data.elasticsearch.annotations.FieldType
 import java.util.*
 
 @Document(indexName = "humlib-humanprofile")
-data class HumanProfile(
+data class Human(
     @Id
     val id: UUID?,
 
     @Field(type = FieldType.Keyword)
-    var tags: List<String>,
+    val tags: List<String>,
 
     @Field(type = FieldType.Keyword)
-    var profession: String,
+    val profession: String,
 
     @Field(type = FieldType.Text)
-    var teaserText: String,
+    val teaserText: String,
 
     @Field(type = FieldType.Text)
-    var contentText: String,
+    val contentText: String,
 )

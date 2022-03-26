@@ -1,5 +1,5 @@
 package com.humlib.model
 
-class HumanProfileTags(
+class HumansTags(
     var tags: List<String>,
 )

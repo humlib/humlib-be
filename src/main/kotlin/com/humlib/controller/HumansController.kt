@@ -1,6 +1,6 @@
 package com.humlib.controller
 
-import com.humlib.model.HumanProfile
+import com.humlib.model.Human
 import com.humlib.repository.HumanProfileRepository
 import com.humlib.security.annotations.IsHumanWithSameId
 import org.springframework.security.core.Authentication
@@ -15,17 +15,17 @@ class HumansController(
 ) {
 
     @GetMapping
-    fun getHuman(@PathVariable id: UUID, authentication: Authentication): HumanProfile {
+    fun getHuman(@PathVariable id: UUID, authentication: Authentication): Human {
         return humanProfileRepository.findById(id).get()
     }
 
     @PostMapping
     fun saveHuman(
         @PathVariable id: UUID,
-        @RequestBody humanProfile: HumanProfile,
+        @RequestBody human: Human,
         authentication: Authentication,
-    ): HumanProfile {
-        val newHumanProfile = humanProfile.copy(id = id)
+    ): Human {
+        val newHumanProfile = human.copy(id = id)
         humanProfileRepository.save(newHumanProfile)
         return newHumanProfile
     }
