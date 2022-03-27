@@ -12,3 +12,10 @@ logging:
     org:
       springframework:
         security: TRACE
+
+elasticsearch:
+  scheme: https
+  host: localhost
+  port: 9200
+  username: elastic
+  password: elastic
