@@ -9,9 +9,7 @@ import java.util.*
 class HumansService(
     private val humansRepository: HumansRepository
 ) {
-    fun findHumanById(id: UUID): Human {
-        return humansRepository.findById(id).get()
-    }
+    fun findHumanById(id: UUID) = humansRepository.findById(id).get()
 
     fun saveAndUpdateHumanById(id: UUID, human: Human): Human {
         val newHumanProfile = human.copy(id = id)
@@ -19,8 +17,5 @@ class HumansService(
         return newHumanProfile
     }
 
-    fun deleteHumanById(id: UUID) {
-        humansRepository.deleteById(id)
-    }
-
+    fun deleteHumanById(id: UUID) = humansRepository.deleteById(id)
 }

@@ -11,9 +11,7 @@ class SearchHumansService(
     private val humansRepository: HumansRepository
 ) {
 
-    fun getAllHumans(): List<Human> {
-        return humansRepository.findAll().toList()
-    }
+    fun getAllHumans() = humansRepository.findAll().toList()
 
     /**
      * Pageable search request.
@@ -21,9 +19,7 @@ class SearchHumansService(
      */
     fun searchContainsAllHumans(paging: Pageable, tags: Tags): List<Human> {
         val pagedResult = humansRepository.containsAtLeastNumberOfGivenTags(
-            tags.tags,
-            tags.tags.size,
-            paging
+            tags.tags, tags.tags.size, paging
         )
         return if (pagedResult.hasContent()) {
             pagedResult.content
@@ -42,9 +38,7 @@ class SearchHumansService(
             throw IllegalArgumentException("""search param "matchesAtLeast" must be positive""")
         }
         val pagedResult = humansRepository.containsAtLeastNumberOfGivenTags(
-            tags.tags,
-            matchesAtLeast ?: 1,
-            paging
+            tags.tags, matchesAtLeast ?: 1, paging
         )
         return if (pagedResult.hasContent()) {
             pagedResult.content

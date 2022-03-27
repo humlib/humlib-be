@@ -1,6 +1,5 @@
 package com.humlib.controller
 
-import com.humlib.controller.dto.HumanDTO
 import com.humlib.controller.dto.TagsDTO
 import com.humlib.controller.dto.toDtos
 import com.humlib.security.annotations.IsKid
@@ -15,22 +14,19 @@ class SearchHumansController(
     val searchHumansService: SearchHumansService
 ) {
     @GetMapping
-    fun getAll(): List<HumanDTO> {
-        return searchHumansService
+    fun getAll() =
+        searchHumansService
             .getAllHumans()
             .toDtos()
-    }
 
     @GetMapping("/contains_all")
     fun containsAll(
         @RequestParam pageNo: Int,
         @RequestParam pageSize: Int,
         @RequestBody tags: TagsDTO
-    ): List<HumanDTO> {
-        return searchHumansService
-            .searchContainsAllHumans(PageRequest.of(pageNo, pageSize), tags.entity())
-            .toDtos()
-    }
+    ) = searchHumansService
+        .searchContainsAllHumans(PageRequest.of(pageNo, pageSize), tags.entity())
+        .toDtos()
 
     @GetMapping("/contains")
     fun contains(
@@ -38,9 +34,7 @@ class SearchHumansController(
         @RequestParam pageSize: Int,
         @RequestParam matchesAtLeast: Int?,
         @RequestBody tags: TagsDTO
-    ): List<HumanDTO> {
-        return searchHumansService
-            .searchContainsHumans(PageRequest.of(pageNo, pageSize), tags.entity(), matchesAtLeast)
-            .toDtos()
-    }
+    ) = searchHumansService
+        .searchContainsHumans(PageRequest.of(pageNo, pageSize), tags.entity(), matchesAtLeast)
+        .toDtos()
 }

@@ -14,21 +14,16 @@ class HumansController(
     val humansService: HumansService
 ) {
     @GetMapping
-    fun getHuman(@PathVariable id: UUID, authentication: Authentication): HumanDTO {
-        return HumanDTO.from(humansService.findHumanById(id))
-    }
+    fun getHuman(@PathVariable id: UUID, authentication: Authentication) =
+        HumanDTO.from(humansService.findHumanById(id))
 
     @PostMapping
     fun saveHuman(
         @PathVariable id: UUID,
         @RequestBody human: HumanDTO,
         authentication: Authentication,
-    ): HumanDTO {
-        return HumanDTO.from(humansService.saveAndUpdateHumanById(id, human.entity()))
-    }
+    ) = HumanDTO.from(humansService.saveAndUpdateHumanById(id, human.entity()))
 
     @DeleteMapping
-    fun deleteHuman(@PathVariable id: UUID, authentication: Authentication) {
-        humansService.deleteHumanById(id)
-    }
+    fun deleteHuman(@PathVariable id: UUID, authentication: Authentication) = humansService.deleteHumanById(id)
 }
