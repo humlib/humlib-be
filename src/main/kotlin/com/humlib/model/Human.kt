@@ -11,7 +11,7 @@ data class Human(
     @Id
     val id: UUID?,
 
-    @Field(type = FieldType.Nested)
+    @Field(type = FieldType.Keyword)
     val tags: Tags,
 
     @Field(type = FieldType.Keyword)
