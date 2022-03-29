@@ -37,4 +37,9 @@ class SearchHumansController(
     ) = searchHumansService
         .searchContainsHumans(PageRequest.of(pageNo, pageSize), tags.entity(), matchesAtLeast)
         .toDtos()
+
+    @GetMapping("/suggest_tags")
+    fun suggestTags(
+        @RequestParam tag: String,
+    ) = searchHumansService.searchByTag(tag)
 }
