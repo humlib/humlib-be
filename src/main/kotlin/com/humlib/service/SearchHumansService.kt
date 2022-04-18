@@ -59,7 +59,7 @@ class SearchHumansService(
 
     fun searchByTag(tag: String): SearchResponse {
         val searchSourceBuilder = SearchSourceBuilder()
-        val termSuggestionBuilder: SuggestionBuilder<*> = SuggestBuilders.termSuggestion("tags.tags").text(tag)
+        val termSuggestionBuilder: SuggestionBuilder<*> = SuggestBuilders.completionSuggestion("tags.tags").text(tag)
         val suggestBuilder = SuggestBuilder()
         suggestBuilder.addSuggestion("suggest_tags", termSuggestionBuilder)
         searchSourceBuilder.suggest(suggestBuilder)
