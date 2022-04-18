@@ -1,11 +1,19 @@
 {
   "analysis": {
-    "normalizer": {
+    "filter": {
+      "autocomplete_filter": {
+        "type": "edge_ngram",
+        "min_gram": 1,
+        "max_gram": 25
+      }
+    },
+    "analyzer": {
       "autocomplete": {
         "type": "custom",
+        "tokenizer": "standard",
         "filter": [
           "lowercase",
-          "asciifolding"
+          "autocomplete_filter"
         ]
       }
     }

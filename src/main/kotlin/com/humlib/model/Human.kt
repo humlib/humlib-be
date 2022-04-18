@@ -13,7 +13,7 @@ data class Human(
     @Id
     val id: UUID?,
 
-    @Field(type = FieldType.Keyword, normalizer = "autocomplete")
+    @Field(type = FieldType.Text, analyzer = "autocomplete", searchAnalyzer = "standard")
     val tags: List<String>,
 
     @Field(type = FieldType.Keyword)
