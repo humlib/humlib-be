@@ -12,7 +12,7 @@ interface HumansRepository : ElasticsearchRepository<Human, UUID> {
         """
     {
       "terms_set": {
-        "tags.tags": {
+        "tags": {
           "terms": ?0 , 
             "minimum_should_match_script": {
               "source": "?1" 
@@ -32,7 +32,7 @@ interface HumansRepository : ElasticsearchRepository<Human, UUID> {
     """
     {
       "match": {
-        "tags.tags": "?0"
+        "tags": "?0"
       }
     }
     """

@@ -1,7 +1,6 @@
 package com.humlib.controller.dto
 
 import com.humlib.model.Human
-import com.humlib.model.Tags
 
 data class HumanDTO(
     val tags: List<String>,
@@ -11,7 +10,7 @@ data class HumanDTO(
 ) {
     fun entity() = Human(
         id = null,
-        tags = Tags(tags = tags),
+        tags = tags,
         profession = profession,
         teaserText = teaserText,
         contentText = contentText,
@@ -19,7 +18,7 @@ data class HumanDTO(
 
     companion object {
         fun from(human: Human) = HumanDTO(
-            tags = human.tags.tags,
+            tags = human.tags,
             profession = human.profession,
             teaserText = human.teaserText,
             contentText = human.contentText

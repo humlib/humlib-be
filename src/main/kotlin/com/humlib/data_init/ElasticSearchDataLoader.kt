@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.type.CollectionType
 import com.fasterxml.jackson.databind.type.TypeFactory
 import com.humlib.model.Human
-import com.humlib.model.Tags
 import com.humlib.service.HumansService
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.CommandLineRunner
@@ -44,7 +43,7 @@ class ElasticSearchDataLoader(
     private fun from(humanJson: HumanJsonData): Human {
         return Human(
             UUID.fromString(humanJson.id),
-            Tags(humanJson.tags.tags),
+            humanJson.tags,
             humanJson.contentText,
             humanJson.profession,
             humanJson.teaserText
