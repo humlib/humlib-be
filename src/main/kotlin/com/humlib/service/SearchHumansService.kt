@@ -3,14 +3,6 @@ package com.humlib.service
 import com.humlib.model.Human
 import com.humlib.model.Tags
 import com.humlib.repository.HumansRepository
-import org.elasticsearch.action.search.SearchRequest
-import org.elasticsearch.action.search.SearchResponse
-import org.elasticsearch.client.RequestOptions
-import org.elasticsearch.client.RestHighLevelClient
-import org.elasticsearch.search.builder.SearchSourceBuilder
-import org.elasticsearch.search.suggest.SuggestBuilder
-import org.elasticsearch.search.suggest.SuggestBuilders
-import org.elasticsearch.search.suggest.SuggestionBuilder
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 
@@ -18,10 +10,13 @@ import org.springframework.stereotype.Service
 @Service
 class SearchHumansService(
     private val humansRepository: HumansRepository,
-    private val elasticsearchClient: RestHighLevelClient
 ) {
 
     fun getAllHumans() = humansRepository.findAll().toList()
+
+    fun search(keyword: String): List<Human?>? {
+        return this.humansRepository.search(keyword)
+    }
 
     /**
      * Pageable search request.
@@ -56,18 +51,4 @@ class SearchHumansService(
             ArrayList()
         }
     }
-
-    fun searchByTag(tag: String): SearchResponse {
-        val searchSourceBuilder = SearchSourceBuilder()
-        val termSuggestionBuilder: SuggestionBuilder<*> = SuggestBuilders.completionSuggestion("tags.tags").text(tag)
-        val suggestBuilder = SuggestBuilder()
-        suggestBuilder.addSuggestion("suggest_tags", termSuggestionBuilder)
-        searchSourceBuilder.suggest(suggestBuilder)
-        val searchRequest = SearchRequest()
-        searchRequest.indices("humlib-human")
-        searchRequest.source(searchSourceBuilder)
-        return elasticsearchClient.search(searchRequest, RequestOptions.DEFAULT)
-    }
-
-
 }

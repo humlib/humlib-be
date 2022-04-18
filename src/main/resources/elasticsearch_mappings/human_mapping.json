@@ -1,9 +1,0 @@
-{
-  "index": {
-    "mapping": {
-      "total_fields": {
-        "limit": "100000"
-      }
-    }
-  }
-}

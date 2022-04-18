@@ -1,8 +1,10 @@
 package com.humlib.model
 
 import org.springframework.data.annotation.Id
-import org.springframework.data.elasticsearch.annotations.*
-import org.springframework.data.elasticsearch.core.suggest.Completion
+import org.springframework.data.elasticsearch.annotations.Document
+import org.springframework.data.elasticsearch.annotations.Field
+import org.springframework.data.elasticsearch.annotations.FieldType
+import org.springframework.data.elasticsearch.annotations.Setting
 import java.util.*
 
 @Document(indexName = "humlib-human")
@@ -11,8 +13,8 @@ data class Human(
     @Id
     val id: UUID?,
 
-    @CompletionField
-    val tags: Completion,
+    @Field(type = FieldType.Keyword, analyzer = "autocomplete_index", searchAnalyzer = "autocomplete_search")
+    val tags: Tags,
 
     @Field(type = FieldType.Keyword)
     val profession: String,

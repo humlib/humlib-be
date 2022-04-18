@@ -2,6 +2,7 @@ package com.humlib.controller
 
 import com.humlib.controller.dto.TagsDTO
 import com.humlib.controller.dto.toDtos
+import com.humlib.model.Human
 import com.humlib.security.annotations.IsKid
 import com.humlib.service.SearchHumansService
 import org.springframework.data.domain.PageRequest
@@ -38,8 +39,8 @@ class SearchHumansController(
         .searchContainsHumans(PageRequest.of(pageNo, pageSize), tags.entity(), matchesAtLeast)
         .toDtos()
 
-    @GetMapping("/suggest_tags")
-    fun suggestTags(
-        @RequestParam tag: String,
-    ) = searchHumansService.searchByTag(tag)
+    @GetMapping(path = ["/search"])
+    fun searchHumans(@RequestParam keywords: String): List<Human?>? {
+        return this.searchHumansService.search(keywords)
+    }
 }

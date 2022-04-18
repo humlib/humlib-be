@@ -1,7 +1,6 @@
 package com.humlib.repository
 
 import com.humlib.model.Human
-import com.humlib.model.Tags
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.elasticsearch.annotations.Query
@@ -10,7 +9,7 @@ import java.util.*
 
 interface HumansRepository : ElasticsearchRepository<Human, UUID> {
     @Query(
-    """
+        """
     {
       "terms_set": {
         "tags.tags": {
@@ -32,23 +31,11 @@ interface HumansRepository : ElasticsearchRepository<Human, UUID> {
     @Query(
     """
     {
-      "query" : {
-        "match": {
-          "tags.tags": "?0"
-        }
-      },
-      "suggest" : {
-        "my-suggestion" : {
-          "text" : "?0",
-          "term" : {
-            "field" : "tags.tags"
-          }
-        }
+      "match": {
+        "tags.tags": "?0"
       }
     }
     """
     )
-    fun autocompleteTags(tag: String): Tags
-
-
+    fun search(tag: String): List<Human>?
 }
