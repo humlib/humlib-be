@@ -18,4 +18,8 @@ class HumansService(
     }
 
     fun deleteHumanById(id: UUID) = humansRepository.deleteById(id)
+
+    fun count(): Long {
+        return this.humansRepository.count();
+    }
 }
