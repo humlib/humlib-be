@@ -19,3 +19,10 @@ elasticsearch:
   port: 9200
   username: elastic
   password: elastic
+
+keycloak:
+  realm: humlib
+  resource: admin-humlib-be
+  auth-server-url: http://localhost:8180/auth
+  credentials:
+    secret: f6BMASCq5eUcB10jBcPCwrchCpF3RXu8
