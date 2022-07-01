@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.0.0-M1</version>
+        <version>3.0.0-M3</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.humlib</groupId>
@@ -15,7 +15,7 @@
     <description>The backend of HumLib - The Human Library in Computer Science</description>
     <properties>
         <java.version>17</java.version>
-        <kotlin.version>1.6.20-RC</kotlin.version>
+        <kotlin.version>1.7.0</kotlin.version>
         <jacoco.plugin.version>0.8.7</jacoco.plugin.version>
         <testcontainers.version>1.16.3</testcontainers.version>
     </properties>
